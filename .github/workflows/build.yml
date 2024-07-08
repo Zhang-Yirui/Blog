@@ -79,7 +79,7 @@ jobs:
         with:
           token: ${{ secrets.GH_PAT }}
           branch: Redefine
-          folder: Redefine/public
+          folder: blog/public
           git-config-name: ${{ github.actor }}
           git-config-email: ${{ secrets.GIT_EMAIL }}
           repository-name: Zhang-Yirui/test_workflows
