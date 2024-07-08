@@ -78,9 +78,9 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           token: ${{ secrets.GH_PAT }}
-          branch: Redefine
+          branch: main
           folder: blog/public
           git-config-name: ${{ github.actor }}
           git-config-email: ${{ secrets.GIT_EMAIL }}
-          repository-name: Zhang-Yirui/test_workflows
+          repository-name: Zhang-Yirui/Zhang-Yirui.github.io
           
