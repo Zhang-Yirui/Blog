@@ -73,7 +73,12 @@ jobs:
           cd ${{ github.workspace }}/blog/public
           sed -e 's|别看了，啥都木有！|欢迎来的我的世界！|g' ../../README.md > ./README.md
         shell: bash
-
+      - name: Push to mu server
+        run: |
+          cd ${{ github.workspace }}/blog/
+          tar -czvf public.tar.gz ./public/
+          cp ./public.tar.gz ./public
+        shell: bash 
       - name: Deploy pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
