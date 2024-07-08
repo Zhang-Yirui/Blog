@@ -1,0 +1,86 @@
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  Hexo-build:
+    name: Hexo blog build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Get files from repository
+        uses: actions/checkout@v4
+      
+      - name: Install pandoc
+        run: |
+          version=$(echo "$(curl -s https://api.github.com/repos/jgm/pandoc/releases/latest)" | grep 'tag_name' | cut -d'"' -f4)
+          wget -c https://github.com/jgm/pandoc/releases/download/$version/pandoc-$version-1-amd64.deb
+          sudo dpkg -i pandoc-$version-1-amd64.deb
+          echo "--------------------------------------------------------------------------------"
+          pandoc -v
+          echo "--------------------------------------------------------------------------------"
+        shell: bash
+      
+      - name: Insatll hexo
+        run: |
+          echo "--------------------------------------------------"
+          cd ${{ github.workspace }}
+          echo "pandoc version: $(pandoc -v)"
+          echo "nodejs version: $(node -v)"
+          echo "npm version: $(npm -v)"
+          npm install -g hexo-cli
+          echo "--------------------------------------------------"
+        shell: bash
+      - name: Init blog & install redefine theme
+        run: |
+          cd ${{ github.workspace }}
+          hexo init blog
+          cd blog
+          git clone https://github.com/EvanNotFound/hexo-theme-redefine.git themes/redefine
+        shell: bash
+        
+      - name: Insatll npm packages
+        run: |
+          cd ${{ github.workspace }}/blog
+          npm install hexo-all-minifier
+          npm uninstall hexo-blog-encrypt
+          npm install hexo-filter-mermaid-diagrams
+          npm install hexo-filter-mathjax
+          npm uninstall hexo-renderer-marked
+          npm install hexo-renderer-pandoc
+        shell: bash
+        
+      - name: Copy files
+        run: |
+          cd ${{ github.workspace }}
+          cp ./Redefine/*.yml ./blog/
+          cp -r ./Redefine/source/ ./blog/
+          cp -r ./Redefine/scaffolds ./blog/
+        shell: bash
+
+      - name: Generat blog
+        run: |
+          cd ${{ github.workspace }}/blog
+          hexo g
+        shell: bash
+        
+      - name: Add README file
+        run: |
+          cd ${{ github.workspace }}/blog/public
+          sed -e 's|别看了，啥都木有！|欢迎来的我的世界！|g' ../../README.md > ./README.md
+        shell: bash
+
+      - name: Deploy pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          token: ${{ secrets.GH_PAT }}
+          branch: Redefine
+          folder: Redefine/public
+          git-config-name: ${{ github.actor }}
+          git-config-email: ${{ secrets.GIT_EMAIL }}
+          repository-name: Zhang-Yirui/test_workflows
+          
