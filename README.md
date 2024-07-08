@@ -8,7 +8,7 @@
 [![Windows](https://img.shields.io/badge/-Windows-blue?logo=windows)](https://img.shields.io/badge/-Windows-blue?logo=windows)
 [![Web](https://img.shields.io/badge/Web-PWA-orange?logo=microsoftedge)](https://zhang-yirui.github.io/)
 [![Browser](https://img.shields.io/badge/Browser-Safari-orange?logo=safari)](https://zhang-yirui.github.io/)
-[![GitHub license](https://img.shields.io/github/license/Zhang-Yirui/Zhang-Yirui.github.io)](https://github.com/Zhang-Yirui/Zhang-Yirui.github.io/blob/main/LICENSE)
+[![GitHub license](https://img.shields.io/github/license/Zhang-Yirui/Blog)](https://github.com/Zhang-Yirui/Blog/blob/main/LICENSE)
 
 
 # 别看了，啥都木有！
