@@ -72,7 +72,7 @@ jobs:
       - name: Add README file
         run: |
           cd ${{ github.workspace }}/blog
-          cp ../Redefine/.README.md ./public/README.md
+          cp ../Redefine/source/.README.md ./public/README.md
         shell: bash
           
       - name: Deploy pages
