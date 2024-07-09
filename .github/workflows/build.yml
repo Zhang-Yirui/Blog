@@ -71,8 +71,8 @@ jobs:
         
       - name: Add README file
         run: |
-          cd ${{ github.workspace }}/blog/public
-          sed -e 's|别看了，啥都木有！|欢迎来的我的世界！|g' ../../README.md > ./README.md
+          cd ${{ github.workspace }}/blog
+          cp ../Redefine/.README.md ./public/README.md
         shell: bash
           
       - name: Deploy pages
