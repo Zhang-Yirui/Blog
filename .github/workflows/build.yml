@@ -101,10 +101,10 @@ jobs:
           scp_source: ${{ github.workspace }}/blog/public.tar.gz
           scp_target: /www/wwwroot/
           before_script: |
-            ehco "df -h: $(df -h)"
-            ehco "pwd: $(pwd)"
+            echo "df -h: $(df -h)"
+            echo "pwd: $(pwd)"
           after_script: |
             echo "whoami: $(whoami)"
-            ehco "pwd: $(pwd)"
+            echo "pwd: $(pwd)"
             cd /www/wwwroot/ 
             tar -xzvf ./public.tar.gz
