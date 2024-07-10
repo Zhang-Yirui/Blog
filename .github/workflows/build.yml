@@ -102,9 +102,5 @@ jobs:
           scp_target: /www/wwwroot/
           before_script: |
             echo "df -h: $(df -h)"
-            echo "pwd: $(pwd)"
           after_script: |
-            echo "whoami: $(whoami)"
-            echo "pwd: $(pwd)"
-            cd /www/wwwroot/ 
-            tar -xzvf /www/wwwroot/public.tar.gz -C /www/wwwroot/
+            nohup tar -xzvf /www/wwwroot/public.tar.gz -C /www/wwwroot/ > /www/wwwroot/nohup.log
