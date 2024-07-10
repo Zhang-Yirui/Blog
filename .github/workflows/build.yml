@@ -91,21 +91,6 @@ jobs:
           git-config-email: ${{ secrets.GIT_EMAIL }}
           repository-name: Zhang-Yirui/Zhang-Yirui.github.io
        
-      - name: SSH Server1 Deploy
-        uses: kostya-ten/ssh-server-deploy@v4
-        with:
-          host: ${{ secrets.SERVER1_HOST }}
-          port: ${{ secrets.SERVER1_PORT }}
-          username: ${{ secrets.SERVER1_USERNAME }}
-          private_key: ${{ secrets.SERVER1_PRIVATE_KEY }}
-          scp_source: ${{ github.workspace }}/blog/public.tar.gz
-          scp_target: /www/wwwroot/blog.redefine
-          before_script: |
-            rm -f /www/wwwroot/blog.redefine/public.tar.gz
-            rm -f /www/wwwroot/blog.redefine/nohup.log
-          after_script: |
-            nohup tar -xzvf /www/wwwroot/blog.redefine/public.tar.gz -C /www/wwwroot/blog.redefine/ > /www/wwwroot/blog.redefine/nohup.log 2>&1 &
-      
       - name: SSH Server2 Deploy
         uses: kostya-ten/ssh-server-deploy@v4
         with:
