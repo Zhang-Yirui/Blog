@@ -2227,7 +2227,7 @@ function getDateInfo(year, month, day, hour, minute, second){
             // 解析 YAML
             let config = yaml.load(config_yaml);
             let subtitle = config.home_banner.subtitle.text;
-            config.home_banner.subtitle.text = [ret_str, ...subtitle]
+            config.home_banner.subtitle.text = [...subtitle, ret_str]
             fs.writeFileSync('_config.redefine.yml',yaml.dump(config), 'utf8');
         } catch (error) {
             console.error('Error reading or parsing YAML file:', error.message);

@@ -94,10 +94,10 @@ jobs:
       - name: SSH Server Deploy
         uses: kostya-ten/ssh-server-deploy@v4
         with:
-          host: ${{ secrets.SSH_HOST }}
-          port: ${{ secrets.DEPLOY_PORT }}
-          username: ${{ secrets.SSH_USERNAME }}
-          password: ${{ secrets.DEPLOY_PASSWORD }}
+          host: ${{ secrets.SERVER1_HOST }}
+          port: ${{ secrets.SERVER1_PORT }}
+          username: ${{ secrets.SERVER1_USERNAME }}
+          private_key: ${{ secrets.SERVER1_PRIVATE_KEY }}
           scp_source: ${{ github.workspace }}/blog/public.tar.gz
           scp_target: /www/wwwroot/blog.redefine
           before_script: |
