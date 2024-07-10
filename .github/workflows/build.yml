@@ -101,28 +101,6 @@ jobs:
           scp_source: ${{ github.workspace }}/blog/public.tar.gz
           scp_target: /www/wwwroot/blog.redefine
           before_script: |
-            [ -f "/www/wwwroot/blog.redefine/public.tar.gz" ] && rm /www/wwwroot/blog.redefine/public.tar.gz
-            [ -f "/www/wwwroot/blog.redefine/nohup.log" ] && rm /www/wwwroot/blog.redefine/nohup.log
+            ls -al
           after_script: |
             nohup tar -xzvf /www/wwwroot/blog.redefine/public.tar.gz -C /www/wwwroot/blog.redefine/ > /www/wwwroot/blog.redefine/nohup.log 2>&1 &
-            
-      - name: SSH Server2 Deploy
-        uses: easingthemes/ssh-deploy@main
-        with:
-          SSH_PRIVATE_KEY: ${{ secrets.SERVER2_PRIVATE_KEY }}
-          ARGS: "-rlgoDzvc -i"
-          SOURCE: ${{ github.workspace }}/blog/public.tar.gz
-          REMOTE_HOST: ${{ secrets.SERVER2_HOST }}
-          REMOTE_PORT: ${{ secrets.SERVER2_PORT }}
-          REMOTE_USER: ${{ secrets.SERVER2_USERNAME }}
-          TARGET: /www/Redefine
-          SCRIPT_BEFORE: |
-            whoami
-            ls -al
-            rm -f /www/Redefine/public.tar.gz
-            rm -f /www/Redefine/nohup.log
-          SCRIPT_AFTER: |
-            whoami
-            ls -al
-            echo $RSYNC_STDOUT
-            nohup tar -xzvf /www/Redefine/public.tar.gz -C /www/Redefine/ > /www/Redefine/nohup.log 2>&1 &
