@@ -1652,7 +1652,7 @@ const Jieqi = [
 const Xingqi = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
 const Other = ["小", "大", "", "闰"];
 
-const current = new Date();
+const current = new Date(new Date().getTime() + 8 * 60 * 60 * 1000)
 const current_year = current.getFullYear();
 const current_month = current.getMonth() + 1; // 月份从0开始，因此需要加1
 const current_day = current.getDate();
