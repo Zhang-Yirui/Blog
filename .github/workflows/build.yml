@@ -104,4 +104,4 @@ jobs:
             rm -f /www/wwwroot/blog.redefine/public.tar.gz
             rm -f /www/wwwroot/blog.redefine/nohup.log
           after_script: |
-            nohup tar -xzvf /www/wwwroot/blog.redefine/public.tar.gz > /www/wwwroot/blog.redefine/nohup.log 2>&1 &
+            nohup tar -xzvf /www/wwwroot/blog.redefine/public.tar.gz  -C /www/wwwroot/blog.redefine > /www/wwwroot/blog.redefine/nohup.log 2>&1 &
