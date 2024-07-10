@@ -1,6 +1,7 @@
 ---
 title: Redefine 主题中使用 LaTeX 书写数学公式避坑指南
 date: 2023-10-12 21:32:01
+excerpt: "如果想要完整显示所有LaTeX公式，首先需要安装插件hexo-filter-mathjax。..."
 mathjax: true
 tags: 
   - mathjax

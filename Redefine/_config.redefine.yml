@@ -126,7 +126,7 @@ home_banner:
     typing_speed: 100 # Typing speed (ms)
     backing_speed: 80 # Backing speed (ms)
     starting_delay: 500 # Start delay (ms)
-    backing_delay: 1500 # Backing delay (ms)
+    backing_delay: 2000 # Backing delay (ms)
     loop: true # Whether to loop
     smart_backspace: true # Whether to smart backspace
   # Color of home banner text

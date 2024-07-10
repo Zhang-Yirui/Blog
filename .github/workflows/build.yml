@@ -50,12 +50,12 @@ jobs:
         run: |
           cd ${{ github.workspace }}/blog
           npm install js-yaml
-          npm install hexo-all-minifier
-          npm uninstall hexo-blog-encrypt
           npm install hexo-filter-mermaid-diagrams
+          npm install hexo-all-minifier
           npm install hexo-filter-mathjax
           npm uninstall hexo-renderer-marked
           npm install hexo-renderer-pandoc
+          npm uninstall hexo-blog-encrypt
         shell: bash
         
       - name: Copy files
