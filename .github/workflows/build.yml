@@ -99,8 +99,9 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           password: ${{ secrets.DEPLOY_PASSWORD }}
           scp_source: ${{ github.workspace }}/blog/public.tar.gz
-          scp_target: /www/wwwroot/
+          scp_target: /www/wwwroot/blog.redefine
           before_script: |
-            echo "df -h: $(df -h)"
+            rm -f /www/wwwroot/blog.redefine/public.tar.gz
+            rm -f /www/wwwroot/blog.redefine/nohup.log
           after_script: |
-            nohup tar -xzvf /www/wwwroot/public.tar.gz -C /www/wwwroot/ > /www/wwwroot/nohup.log
+            nohup tar -xzvf /www/wwwroot/blog.redefine/public.tar.gz > /www/wwwroot/blog.redefine/nohup.log 2>&1 &
