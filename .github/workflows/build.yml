@@ -78,7 +78,7 @@ jobs:
         run: |
           cd ${{ github.workspace }}/blog
           cp ../Redefine/source/.README.md ./public/README.md
-          tar -zvxf public.tar.gz ./public 
+          tar -zcvf public.tar.gz ./public 
         shell: bash
           
       - name: Deploy pages
