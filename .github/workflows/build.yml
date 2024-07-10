@@ -99,9 +99,9 @@ jobs:
           username: ${{ secrets.SERVER1_USERNAME }}
           private_key: ${{ secrets.SERVER1_PRIVATE_KEY }}
           scp_source: ${{ github.workspace }}/blog/public.tar.gz
-          scp_target: /www/wwwroot/blog.redefine
+          scp_target: ${{ secrets.SERVER1_TARGET }}
           before_script: |
-            cd /www/wwwroot/blog.redefine
+            cd ${{ secrets.SERVER1_TARGET }}
             ls -al
           after_script: |
-            nohup tar -xzvf /www/wwwroot/blog.redefine/public.tar.gz -C /www/wwwroot/blog.redefine/ > /www/wwwroot/blog.redefine/nohup.log 2>&1 &
+            nohup tar -xzvf ${{ secrets.SERVER1_TARGET }}/public.tar.gz -C ${{ secrets.SERVER1_TARGET }}/ > ${{ secrets.SERVER1_TARGET }}/nohup.log 2>&1 &
