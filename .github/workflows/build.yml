@@ -91,7 +91,7 @@ jobs:
           git-config-email: ${{ secrets.GIT_EMAIL }}
           repository-name: Zhang-Yirui/Zhang-Yirui.github.io
        
-      - name: SSH Server Deploy
+      - name: SSH Server1 Deploy
         uses: kostya-ten/ssh-server-deploy@v4
         with:
           host: ${{ secrets.SERVER1_HOST }}
@@ -105,3 +105,18 @@ jobs:
             rm -f /www/wwwroot/blog.redefine/nohup.log
           after_script: |
             nohup tar -xzvf /www/wwwroot/blog.redefine/public.tar.gz -C /www/wwwroot/blog.redefine/ > /www/wwwroot/blog.redefine/nohup.log 2>&1 &
+      
+      - name: SSH Server2 Deploy
+        uses: kostya-ten/ssh-server-deploy@v4
+        with:
+          host: ${{ secrets.SERVER2_HOST }}
+          port: ${{ secrets.SERVER2_PORT }}
+          username: ${{ secrets.SERVER2_USERNAME }}
+          private_key: ${{ secrets.SERVER2_PRIVATE_KEY }}
+          scp_source: ${{ github.workspace }}/blog/public.tar.gz
+          scp_target: /www/wwwroot/blog.redefine
+          before_script: |
+            rm -f /www/Redefine/public.tar.gz
+            rm -f /www/Redefine/nohup.log
+          after_script: |
+            nohup tar -xzvf /www/Redefine/public.tar.gz -C /www/Redefine/ > /www/Redefine/nohup.log 2>&1 &
