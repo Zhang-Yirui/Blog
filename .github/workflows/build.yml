@@ -103,8 +103,8 @@ jobs:
           before_script: |
             whoami
             ls -al
-            rm -f /www/wwwroot/blog.redefine/public.tar.gz
-            rm -f /www/wwwroot/blog.redefine/nohup.log
+            [ -f /www/wwwroot/blog.redefine/public.tar.gz ] && rm -f /www/wwwroot/blog.redefine/public.tar.gz
+            [ -f /www/wwwroot/blog.redefine/nohup.log ] && rm -f /www/wwwroot/blog.redefine/nohup.log
           after_script: |
             whoami
             ls -al
