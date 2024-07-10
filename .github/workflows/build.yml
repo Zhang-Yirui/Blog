@@ -92,26 +92,25 @@ jobs:
           repository-name: Zhang-Yirui/Zhang-Yirui.github.io
        
       - name: SSH Server1 Deploy
-        uses: easingthemes/ssh-deploy@main
+        uses: kostya-ten/ssh-server-deploy@v4
         with:
-          SSH_PRIVATE_KEY: ${{ secrets.SERVER1_PRIVATE_KEY }}
-          ARGS: "-rlgoDzvc -i"
-          SOURCE: ${{ github.workspace }}/blog/public.tar.gz
-          REMOTE_HOST: ${{ secrets.SERVER1_HOST }}
-          REMOTE_PORT: ${{ secrets.SERVER1_PORT }}
-          REMOTE_USER: ${{ secrets.SERVER1_USERNAME }}
-          TARGET: /www/wwwroot/blog.redefine
-          SCRIPT_BEFORE: |
+          host: ${{ secrets.SSH_HOST }}
+          port: ${{ secrets.DEPLOY_PORT }}
+          username: ${{ secrets.SSH_USERNAME }}
+          password: ${{ secrets.DEPLOY_PASSWORD }}
+          scp_source: ${{ github.workspace }}/blog/public.tar.gz
+          scp_target: /www/wwwroot/blog.redefine
+          before_script: |
             whoami
             ls -al
             rm -f /www/wwwroot/blog.redefine/public.tar.gz
             rm -f /www/wwwroot/blog.redefine/nohup.log
-          SCRIPT_AFTER: |
+          after_script: |
             whoami
             ls -al
             echo $RSYNC_STDOUT
             nohup tar -xzvf /www/wwwroot/blog.redefine/public.tar.gz -C /www/wwwroot/blog.redefine/ > /www/wwwroot/blog.redefine/nohup.log 2>&1 &
-        
+            
       - name: SSH Server2 Deploy
         uses: easingthemes/ssh-deploy@main
         with:
