@@ -2207,7 +2207,6 @@ function getDateInfo(year, month, day, hour, minute, second){
 }
 
 (function main() {
-    console.log(current_year, current_month, current_day, current_hours, current_minutes, current_seconds);
     const info = getDateInfo(current_year, current_month, current_day, current_hours, current_minutes, current_seconds);
     const calendar = info.data;
     if(info.result === "success"){
@@ -2222,7 +2221,8 @@ function getDateInfo(year, month, day, hour, minute, second){
             `${Tiangan[calendar.sizhu.day.tiangan - 1]}${Dizhi[calendar.sizhu.day.dizhi - 1]}日 ` +
             `${Jieqi[calendar.jieqi.jieqi - 1]}${calendar.jieqi.isJieqiToday ? '*' : ''} ` +
             `距离${Jieqi[calendar.jieqi.nextJieqi - 1]}还有${calendar.jieqi.nextJieqiRemainDays}天`;
-        console.log(ret_str);
+		// console.log(current_year, current_month, current_day, current_hours, current_minutes, current_seconds);
+        // console.log(ret_str);
         try {
             // 读取 YAML 文件内容
             let config_yaml = fs.readFileSync('_config.redefine.yml', 'utf8');

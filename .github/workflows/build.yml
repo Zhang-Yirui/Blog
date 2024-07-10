@@ -113,6 +113,7 @@ jobs:
           ARGS: "-rlgoDzvc -i"
           SOURCE: ${{ github.workspace }}/blog/public.tar.gz
           REMOTE_HOST: ${{ secrets.SERVER2_HOST }}
+          REMOTE_PORT: ${{ secrets.SERVER2_PORT }}
           REMOTE_USER: ${{ secrets.SERVER2_USERNAME }}
           TARGET: /www/wwwroot/blog.redefine
           SCRIPT_BEFORE: |
