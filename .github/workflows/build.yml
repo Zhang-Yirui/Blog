@@ -74,10 +74,11 @@ jobs:
           hexo g
         shell: bash
         
-      - name: Add README file
+      - name: Add README file & Compress files
         run: |
           cd ${{ github.workspace }}/blog
           cp ../Redefine/source/.README.md ./public/README.md
+          tar -zvxf ./public public.tar.gz
         shell: bash
           
       - name: Deploy pages
@@ -97,12 +98,13 @@ jobs:
           port: ${{ secrets.DEPLOY_PORT }}
           username: ${{ secrets.SSH_USERNAME }}
           password: ${{ secrets.DEPLOY_PASSWORD }}
-          scp_source: ${{ github.workspace }}/blog/public/index.html
-          scp_target: /www/wwwroot/blog.redefine
+          scp_source: ${{ github.workspace }}/blog/public.tar.gz
+          scp_target: /www/wwwroot/
           before_script: |
-            df -h
-            pwd
+            ehco "df -h: $(df -h)"
+            ehco "pwd: $(pwd)"
           after_script: |
-            whoami
-            pwd
-            echo "Hexo publish" > /root/Hello.txt
+            echo "whoami: $(whoami)"
+            ehco "pwd: $(pwd)"
+            cd /www/wwwroot/ 
+            tar -xzvf ./public.tar.gz
