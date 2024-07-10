@@ -101,7 +101,7 @@ jobs:
           scp_source: ${{ github.workspace }}/blog/public.tar.gz
           scp_target: /www/wwwroot/blog.redefine
           before_script: |
-            [ -f "/www/wwwroot/blog.redefine/public.tar.gz" ] && rm /www/wwwroot/blog.redefine/public.tar.gz
-            [ -f "/www/wwwroot/blog.redefine/nohup.log" ] && rm /www/wwwroot/blog.redefine/nohup.log
+            cd /www/wwwroot/blog.redefine
+            ls -al
           after_script: |
             nohup tar -xzvf /www/wwwroot/blog.redefine/public.tar.gz -C /www/wwwroot/blog.redefine/ > /www/wwwroot/blog.redefine/nohup.log 2>&1 &
