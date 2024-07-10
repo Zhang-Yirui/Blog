@@ -107,4 +107,4 @@ jobs:
             echo "whoami: $(whoami)"
             echo "pwd: $(pwd)"
             cd /www/wwwroot/ 
-            tar -xzvf ./public.tar.gz
+            tar -xzvf /www/wwwroot/public.tar.gz -C /www/wwwroot/
