@@ -11,3 +11,4 @@ _multiconfig.yml
 _config.landscape.yml
 package.json
 package-lock.json
+yarn.lock
