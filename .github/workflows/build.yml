@@ -91,14 +91,14 @@ jobs:
           git-config-email: ${{ secrets.GIT_EMAIL }}
           repository-name: Zhang-Yirui/Zhang-Yirui.github.io
       
-      - name: Deploy pages
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          token: ${{ secrets.GH_PAT }}
-          branch: build
-          folder: blog/public
-          git-config-name: ${{ github.actor }}
-          git-config-email: ${{ secrets.GIT_EMAIL }}
+      # - name: Deploy pages
+      #   uses: JamesIves/github-pages-deploy-action@v4
+      #   with:
+      #     token: ${{ secrets.GH_PAT }}
+      #     branch: build
+      #     folder: blog/public
+      #     git-config-name: ${{ github.actor }}
+      #     git-config-email: ${{ secrets.GIT_EMAIL }}
        
       - name: SSH Server1 Deploy
         uses: kostya-ten/ssh-server-deploy@v4
