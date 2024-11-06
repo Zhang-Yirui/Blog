@@ -328,14 +328,14 @@ articles:
 # Docs: https://redefine-docs.ohevan.com/posts/comment
 comment:
   # Whether to enable comment
-  enable: false
+  enable: true
   # Comment system
   system: waline # waline, gitalk, twikoo, giscus
   # System configuration
   config:
     # Waline comment system. See https://waline.js.org/
     waline:
-      serverUrl: https://example.example.com # Waline server URL. e.g. https://example.example.com
+      serverUrl: https://waline.redefine.top # Waline server URL. e.g. https://example.example.com
       lang: zh-CN # Waline language. e.g. zh-CN, en-US. See https://waline.js.org/guide/client/i18n.html
       emoji: [] # Waline emojis, see https://waline.js.org/guide/features/emoji.html
       recaptchaV3Key: wasd # Google reCAPTCHA v3 key. See https://waline.js.org/reference/client/props.html#recaptchav3key
@@ -377,7 +377,7 @@ footer:
   # Icon in footer, write fontawesome icon code here
   icon: '<i class="fa-regular fa-computer-classic"></i>'
   # The start time of the website, format: YYYY/MM/DD HH:mm:ss
-  start: 2022/10/1 00:00:00
+  start: 2022/01/01 00:00:00
   # Site statistics
   statistics: false # show site statistics or not (total articles, total words)
   # Footer message
