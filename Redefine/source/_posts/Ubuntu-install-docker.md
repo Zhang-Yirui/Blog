@@ -260,6 +260,12 @@ ln -sf /home/docker /var/lib/docker
 ```bash
 cat > /etc/docker/daemon.json << EOF
 {
+	"registry-mirrors": [
+							"https://docker.1ms.run", 
+						 	"https://dockerhub.icu", 
+						 	"https://docker2.awsl9527.cn", 
+						 	"https://docker.vpszj.top"
+						]
     "log-driver": "json-file",
     "log-opts": {
         "max-size": "20m",
@@ -267,8 +273,8 @@ cat > /etc/docker/daemon.json << EOF
     },
     "ipv6": true,
     "fixed-cidr-v6": "fd00:dead:beef:c0::/80",
-    "experimental":true,
-    "ip6tables":true
+    "experimental": true,
+    "ip6tables": true
 }
 EOF
 ```
