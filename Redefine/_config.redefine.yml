@@ -102,7 +102,7 @@ fontawesome: # Pro v6.2.1
   # Duotone version
   duotone: false
   # Sharp Solid version
-  sharp_solid: false
+  sharp_solid: true
 # FONTAWESOME <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< end
 
 
@@ -384,7 +384,7 @@ footer:
   customize: 我的生活我做主！
   # ICP record number. See https://beian.miit.gov.cn/
   icp:
-    enable: true # Whether to enable
+    enable: false # Whether to enable
     number: 冀ICP备2021026819号-1 # ICP record number
     url: https://beian.miit.gov.cn/ # ICP record url
 # FOOTER <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< end
