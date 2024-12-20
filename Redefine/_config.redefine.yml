@@ -13,11 +13,11 @@ info:
   # Site title
   title: 小张的笔记
   # Site subtitle
-  subtitle: 我的生活我做主!
+  subtitle: 我的生活我做主！
   # Author name
   author: 静凇
   # Site URL
-  url: https://blog.zhangyirui.cn
+  url: https://blog.bd3qif.com
 # BASIC INFORMATION <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< end
 
 
@@ -48,7 +48,7 @@ colors:
 # SITE CUSTOMIZATION >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> start
 # Docs: https://redefine-docs.ohevan.com/basic/global
 global:
-  # Custom fonts
+  # Custom global fonts
   fonts:
     # Chinese fonts
     chinese: 
@@ -89,12 +89,12 @@ global:
   # Whether to enable Preloader.
   preloader:
     enable: true
-    custom_message: # Custom message. If empty, the site title will be displayed
+    custom_message: 我的生活我做主！ # Custom message. If empty, the site title will be displayed
   # Whether to enable open graph
   open_graph:
     enable: true
-    image: /images/redefine-og.webp  # default og:image
-    description: Hexo Theme Redefine, Redefine Your Hexo Journey.
+    image:  # default og:image
+    description: 我的生活我做主！
   # Google Analytics
   google_analytics:
     enable: false # Whether to enable Google Analytics
@@ -112,7 +112,7 @@ fontawesome: # Pro v6.2.1
   # Duotone version
   duotone: false
   # Sharp Solid version
-  sharp_solid: true
+  sharp_solid: false
 # FONTAWESOME <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< end
 
 
@@ -134,7 +134,7 @@ home_banner:
     text: ["嗨，别来无恙啊！", "cd /home/BD3QIF"] # subtitle text, array
     hitokoto:  # 一言配置
       enable: false # Whether to enable hitokoto
-      show_author: false # Whether to show author
+      show_author: true # Whether to show author
       api: https://v1.hitokoto.cn # API URL, can add types, see https://developer.hitokoto.cn/sentence/#%E5%8F%A5%E5%AD%90%E7%B1%BB%E5%9E%8B-%E5%8F%82%E6%95%B0
     typing_speed: 100 # Typing speed (ms)
     backing_speed: 33 # Backing speed (ms)
@@ -170,12 +170,12 @@ home_banner:
     style: center # default, reverse, center
     # Social links
     links:
-      github: https://github.com/Zhang-Yirui # your GitHub URL
+      github: https://github.com/BD3QIF # your GitHub URL
       instagram: # your Instagram URL
       zhihu:  # your ZhiHu URL
       twitter:  # your twitter URL
-      email: jingsong5683@gmail.com # your email
-      telegram: https://t.me/jingsong88 # your Telegrame URL
+      email: bd3qif@gmail.com # your email
+      telegram: https://t.me/BD3QIF # your Telegrame URL
       bilibili: https://space.bilibili.com/95907216 # your bilibili URL
       # ...... # you can add more
     # Social links with QRcode drawers
@@ -245,9 +245,9 @@ home:
     announcement: '我的生活我做主' # Announcement text
     show_on_mobile: true # Whether to show sidebar navigation on mobile sheet menu
     links:
-      Archives: 
-        path: /archives 
-        icon: fa-regular fa-archive # can be empty
+      # Archives: 
+      #   path: /archives 
+      #   icon: fa-regular fa-archive # can be empty
       # Tags: 
       #   path: /tags 
       #   icon: fa-regular fa-tags # can be empty
@@ -257,6 +257,8 @@ home:
       # ...... # you can add more
   # Article date format
   article_date_format: YYYY-MM-DD HH:mm:ss # auto, relative, YYYY-MM-DD, YYYY-MM-DD HH:mm:ss etc.
+  # Article excerpt length
+  excerpt_length: 200 # Max length of article excerpt
   # Article categories visibility
   categories:
     enable: true  # Whether to enable
@@ -323,7 +325,7 @@ articles:
   # Whether to enable lazyload for images
   lazyload: true
   # Pangu.js (automatically add space between Chinese and English). See https://github.com/vinta/pangu.js
-  pangu_js: false
+  pangu_js: true
   # Article recommendation. Requires nodejieba (npm install nodejieba). Transplanted from hexo-theme-volantis.
   recommendation:
     # Whether to enable article recommendation
@@ -367,7 +369,7 @@ comment:
       proxy: # GitHub repository proxy
     # Twikoo comment system. See https://twikoo.js.org/
     twikoo:
-      version: 1.6.39 # Twikoo version, do not modify if you dont know what it is
+      version: 1.6.10 # Twikoo version, do not modify if you dont know what it is
       server_url: https://cosmic-buttercream-e8a6a1.netlify.app # Twikoo server URL. e.g. https://example.example.com
       region: # Twikoo region. can be empty
     # Giscus comment system. See https://giscus.app/
@@ -473,7 +475,7 @@ cdn:
   # Whether to enable CDN
   enable: true
   # CDN Provider
-  provider: npmmirror # npmmirror, zstatic, sustech, staticfile, bootcdn, cdnjs, jsdelivr, unpkg, custom
+  provider: npmmirror # npmmirror, zstatic, cdnjs, jsdelivr, unpkg, custom
   # Custom CDN URL
   # format example: https://cdn.custom.com/hexo-theme-redefine/${version}/source/${path}
   # The ${path} must leads to the root of the "source" folder of the theme
