@@ -70,7 +70,7 @@ jobs:
       - name: Generat blog
         run: |
           cd ${{ github.workspace }}/blog
-          node ./lunar.js
+          node ./ lunar.js
           hexo g
         shell: bash
         
