@@ -420,7 +420,7 @@ inject:
     - 
   # Inject custom footer html code
   footer:
-    - <script data-swup-reload-script> window.theme.home_banner.subtitle.text = [...window.theme.home_banner.subtitle.text, Calendar.getNowDateInfoStr()]; console.log(window.theme.home_banner.subtitle.text);</script>
+    - <script data-swup-reload-script>if(window.theme.home_banner.subtitle.text.length < 3) { window.theme.home_banner.subtitle.text = [...window.theme.home_banner.subtitle.text, Calendar.getNowDateInfoStr()]; } console.log(window.theme.home_banner.subtitle.text); </script>
     -
 # INJECT <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< end
 
