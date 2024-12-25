@@ -54,7 +54,7 @@
         "inject": {
           "enable": true,
           "head": [
-            "<script data-swup-reload-script src=\"https://fastly.jsdelivr.net/gh/bd3qif/Resources@main/js/lunar.min.js\"></script>"
+            "<script data-swup-reload-script src=\"https://fastly.jsdelivr.net/gh/bd3qif/Resources@main/js/lunar.js\"></script>"
           ]
         }
       }
@@ -111,7 +111,7 @@
         "inject": {
           "enable": true,
           "head": [
-            "<script data-swup-reload-script src=\"https://fastly.jsdelivr.net/gh/bd3qif/Resources@main/js/lunar.min.js\"></script>"
+            "<script data-swup-reload-script src=\"https://fastly.jsdelivr.net/gh/bd3qif/Resources@main/js/lunar.js\"></script>"
           ]
         }
       }
