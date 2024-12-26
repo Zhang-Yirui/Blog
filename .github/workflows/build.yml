@@ -250,10 +250,10 @@ jobs:
       - name: Download config files
         uses: actions/download-artifact@v4
         with:
-          path: ${{ github.workspace }}/files
+          path: ${{ github.workspace }}/blogs
           merge-multiple: true
 
       - name: Display structure of downloaded files
         run: |
-          ls -R ${{ github.workspace }}/artifacts
+          ls -R ${{ github.workspace }}/blogs
         shell: bash
