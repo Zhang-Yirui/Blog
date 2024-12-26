@@ -255,5 +255,11 @@ jobs:
 
       - name: Display structure of downloaded files
         run: |
-          ls -R ${{ github.workspace }}/blogs
+          echo "--------------------------------------------------"
+          ls ${{ github.workspace }}/blogs
+          echo "--------------------------------------------------"
+          ls ${{ github.workspace }}/blogs/blog.zhangyirui.cn
+          echo "--------------------------------------------------"
+          ls ${{ github.workspace }}/blogs/blog.bd3qif.com
+          echo "--------------------------------------------------"
         shell: bash
