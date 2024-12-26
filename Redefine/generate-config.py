@@ -9,9 +9,10 @@ from ruamel.yaml import YAML
 def update_config(old, new):
     for key, value in new.items():
         if isinstance(value, dict) and value is not None:
-            update_config(old.get(key, {}), value)  # 如果是字典，递归遍历
+            update_config(old.get(key, {}), value)  # 如果是字典就递归遍历
         else:
-            old[key] = value  # 如果是基本类型，直接更新 config
+            if old.get(key, value) != value:
+                old[key] = value  # 如果是基本类型且与旧值不相等就直接更新 
 
 
 if __name__ == "__main__":
