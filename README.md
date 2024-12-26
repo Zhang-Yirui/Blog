@@ -9,6 +9,7 @@
 [![Web](https://img.shields.io/badge/Web-PWA-orange?logo=microsoftedge)](https://zhang-yirui.github.io/)
 [![Browser](https://img.shields.io/badge/Browser-Safari-orange?logo=safari)](https://zhang-yirui.github.io/)
 [![GitHub license](https://img.shields.io/github/license/Zhang-Yirui/Blog)](https://github.com/Zhang-Yirui/Blog/blob/main/LICENSE)
+[![Generate Blogs](https://github.com/Zhang-Yirui/Blog/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/Zhang-Yirui/Blog/actions/workflows/build.yml)
 
 
 # 别看了，啥都木有！
