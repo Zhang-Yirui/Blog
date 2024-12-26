@@ -257,7 +257,9 @@ jobs:
           echo "--------------------------------------------------"
           mv ${{ github.workspace }}/blogs/public-bd3qif.tar.gz ${{ github.workspace }}/blogs/blog.bd3qif.com/public.tar.gz
           mv ${{ github.workspace }}/blogs/public-zhangyirui.tar.gz ${{ github.workspace }}/blogs/blog.zhangyirui.cn/public.tar.gz
-          mv ${{ github.workspace }}/blogs/blog.zhangyirui.cn  ${{ github.workspace }}/blogs/blog.zhangyirui.cn
+          cd ${{ github.workspace }}/blogs
+          tar -zcf blog.zhangyirui.cn.tar.gz ./blog.zhangyirui.cn
+          tar -zcf blog.bd3qif.com.tar.gz ./blog.bd3qif.com
           ls -R ${{ github.workspace }}
           echo "--------------------------------------------------"
           echo "$GITHUB_OUTPUT"
