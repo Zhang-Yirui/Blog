@@ -50,8 +50,8 @@ jobs:
             ${{ github.workspace }}/Redefine/blog.zhangyirui.cn/_config.redefine.yml
             ${{ github.workspace }}/Redefine/blog.zhangyirui.cn/_config.yml
 
-  Hexo-Build-for-blog_zhangyirui_cn:
-    name: Build Hexo blog for blog.zhangyirui.cn
+  For-blog_zhangyirui_cn:
+    name: Generate and deploy a Hexo blog with the Redefine theme for blog.zhangyirui.cn
     needs: Generate-Config
     runs-on: ubuntu-latest
     outputs:
@@ -149,8 +149,8 @@ jobs:
           after_script: |
             nohup tar -xzvf ${{ secrets.SERVER1_TARGET }}/public-zhangyirui.tar.gz -C ${{ secrets.SERVER1_TARGET }}/ > ${{ secrets.SERVER1_TARGET }}/nohup.log 2>&1 &
 
-  Hexo-Build-for-blog_bd3qif_com:
-    name: Build Hexo blog for blog.bd3qif.com
+  For-blog_bd3qif_com:
+    name: Generate and deploy a Hexo blog with the Redefine theme for blog.bd3qif.com
     needs: Generate-Config
     runs-on: ubuntu-latest
 
@@ -240,7 +240,7 @@ jobs:
           git-config-name: ${{ github.actor }}
           git-config-email: ${{ secrets.GIT_EMAIL }}
           repository-name: Zhang-Yirui/Zhang-Yirui.github.io
-  
+
   Generate-GitHub-Release:
     name: Generate GitHub Release
     needs: [Hexo-Build-for-blog_zhangyirui_cn, Hexo-Build-for-blog_bd3qif_com]
@@ -252,7 +252,7 @@ jobs:
           path: ${{ github.workspace }}/blogs
           merge-multiple: true
 
-      - name: Display structure of downloaded files
+      - name: Package & Compress files
         run: |
           echo "--------------------------------------------------"
           mv ${{ github.workspace }}/blogs/public-bd3qif.tar.gz ${{ github.workspace }}/blogs/blog.bd3qif.com/public.tar.gz
@@ -267,3 +267,15 @@ jobs:
           cat $GITHUB_OUTPUT
           ls $GITHUB_OUTPUT
         shell: bash
+
+      # - name: Create GitHub release
+      #   id: create_release
+      #   uses: actions/create-release@v4
+      #   with:
+      #     tag_name: v1.0.0  # 您可以根据需要更改版本号
+      #     release_name: "Release v1.0.0"
+      #     body: "This is the first release of config files."
+      #     draft: false
+      #     prerelease: false
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
