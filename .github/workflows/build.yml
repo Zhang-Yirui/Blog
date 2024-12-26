@@ -243,7 +243,7 @@ jobs:
 
   Generate-GitHub-Release:
     name: Generate GitHub Release
-    needs: [Hexo-Build-for-blog_zhangyirui_cn, Hexo-Build-for-blog_bd3qif_com]
+    needs: [For-blog_zhangyirui_cn, For-blog_bd3qif_com]
     runs-on: ubuntu-latest
     steps:
       - name: Download config files
