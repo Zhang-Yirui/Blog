@@ -38,13 +38,6 @@ jobs:
           cd ${{ github.workspace }}/Redefine
           python ./generate-config.py
           echo "config-paths=$(pwd)/blog.bd3qif.com/_config.redefine.yml,$(pwd)/blog.bd3qif.com/_config.yml,$(pwd)/blog.zhangyirui.cn/_config.redefine.yml,$(pwd)/blog.zhangyirui.cn/_config.yml" >> $GITHUB_OUTPUT
-          echo "--------------------------------------------------"
-          ls -al
-          echo "--------------------------------------------------"
-          ls -al ./blog.bd3qif.com
-          echo "--------------------------------------------------"
-          ls -al ./blog.zhangyirui.cn
-          echo "--------------------------------------------------"
         shell: bash
       
       - name: Upload config files as artifacts
@@ -61,6 +54,8 @@ jobs:
     name: Build Hexo blog for blog.zhangyirui.cn
     needs: Generate-Config
     runs-on: ubuntu-latest
+    outputs:
+      config-path: ${{ steps.generate-blog-zhangyirui-cn.outputs.config-paths }}
 
     steps:
       - name: Get files from repository
@@ -124,18 +119,20 @@ jobs:
         shell: bash
 
       - name: Add README file & Compress files
+        id: generate-blog-zhangyirui-cn
         run: |
           cd ${{ github.workspace }}/blog
           cp ../Redefine/source/.README.md ./public/README.md
-          tar -zcf public.tar.gz ./public 
+          tar -zcf public-zhangyirui.tar.gz ./public
+          echo "config-paths=$(pwd)/public-zhangyirui.tar.gz" >> $GITHUB_OUTPUT
         shell: bash
 
       - name: Upload config files as artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: blog.zhangyirui.cn
+          name: zhangyirui
           path: |
-            ${{ github.workspace }}/blog/public.tar.gz
+            ${{ github.workspace }}/blog/public-zhangyirui.tar.gz
 
       - name: SSH Server Deploy
         uses: kostya-ten/ssh-server-deploy@v4
@@ -144,13 +141,13 @@ jobs:
           port: ${{ secrets.SERVER1_PORT }}
           username: ${{ secrets.SERVER1_USERNAME }}
           private_key: ${{ secrets.SERVER1_PRIVATE_KEY }}
-          scp_source: ${{ github.workspace }}/blog/public.tar.gz
+          scp_source: ${{ github.workspace }}/blog/public-zhangyirui.tar.gz
           scp_target: ${{ secrets.SERVER1_TARGET }}
           before_script: |
             cd ${{ secrets.SERVER1_TARGET }}
             ls -al
           after_script: |
-            nohup tar -xzvf ${{ secrets.SERVER1_TARGET }}/public.tar.gz -C ${{ secrets.SERVER1_TARGET }}/ > ${{ secrets.SERVER1_TARGET }}/nohup.log 2>&1 &
+            nohup tar -xzvf ${{ secrets.SERVER1_TARGET }}/public-zhangyirui.tar.gz -C ${{ secrets.SERVER1_TARGET }}/ > ${{ secrets.SERVER1_TARGET }}/nohup.log 2>&1 &
 
   Hexo-Build-for-blog_bd3qif_com:
     name: Build Hexo blog for blog.bd3qif.com
@@ -219,18 +216,20 @@ jobs:
         shell: bash
 
       - name: Add README file & Compress files
+        id: generate-blog-bd3qif-com
         run: |
           cd ${{ github.workspace }}/blog
           cp ../Redefine/source/.README.md ./public/README.md
-          tar -zcf public.tar.gz ./public 
+          tar -zcf public-bd3qif.tar.gz ./public
+          echo "config-paths=$(pwd)/public-bd3qif.tar.gz" >> $GITHUB_OUTPUT
         shell: bash
       
       - name: Upload config files as artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: blog.bd3qif.com
+          name: bd3qif
           path: |
-            ${{ github.workspace }}/blog/public.tar.gz
+            ${{ github.workspace }}/blog/public-bd3qif.tar.gz
       
       - name: Deploy pages
         uses: JamesIves/github-pages-deploy-action@v4
