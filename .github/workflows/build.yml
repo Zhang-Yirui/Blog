@@ -255,12 +255,11 @@ jobs:
       - name: Display structure of downloaded files
         run: |
           echo "--------------------------------------------------"
-          ls 
+          mv ${{ github.workspace }}/blogs/public-bd3qif.tar.gz ${{ github.workspace }}/blogs/blog.bd3qif.com/public.tar.gz
+          mv ${{ github.workspace }}/blogs/public-zhangyirui.tar.gz ${{ github.workspace }}/blogs/blog.zhangyirui.cn/public.tar.gz
+          ls -R ${{ github.workspace }}
           echo "--------------------------------------------------"
-          ls ${{ github.workspace }}/blogs
+          echo "$GITHUB_OUTPUT"
           echo "--------------------------------------------------"
-          ls ${{ github.workspace }}/blogs/blog.zhangyirui.cn
-          echo "--------------------------------------------------"
-          ls ${{ github.workspace }}/blogs/blog.bd3qif.com
-          echo "--------------------------------------------------"
+          cat $GITHUB_OUTPUT
         shell: bash
