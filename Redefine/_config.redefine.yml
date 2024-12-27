@@ -406,6 +406,11 @@ footer:
     enable: false # Whether to enable
     number: 冀ICP备2021026819号-1 # ICP record number
     url: https://beian.miit.gov.cn/ # ICP record url
+    psr:
+      enable: true
+      number: 冀公网安备13310102000099号
+      url: https://beian.mps.gov.cn/
+  
 # FOOTER <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< end
 
 
@@ -421,7 +426,7 @@ inject:
   # Inject custom footer html code
   footer:
     - <script data-swup-reload-script> window.theme.home_banner.subtitle.text.length<3?window.theme.home_banner.subtitle.text=[...window.theme.home_banner.subtitle.text,Calendar.getNowDateInfoStr()]:window.theme.home_banner.subtitle.text=[window.theme.home_banner.subtitle.text[0],window.theme.home_banner.subtitle.text[1],Calendar.getNowDateInfoStr()]; </script>
-    -
+    - <script data-swup-reload-script> console.log(location.pathname); console.log(config.root); </script>
 # INJECT <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< end
 
 

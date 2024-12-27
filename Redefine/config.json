@@ -46,9 +46,7 @@
         },
         "footer": {
           "icp": {
-            "enable": false,
-            "number": "",
-            "url": ""
+            "enable": false
           }
         },
         "inject": {
@@ -105,7 +103,12 @@
           "icp": {
             "enable": true,
             "number": "冀ICP备2021026819号-1",
-            "url": "https://beian.miit.gov.cn/"
+            "url": "https://beian.miit.gov.cn/",
+            "psr": {
+              "enable": true,
+              "number": "冀公网安备13310102000099号",
+              "url": "https://beian.mps.gov.cn/"
+            }
           }
         },
         "inject": {
