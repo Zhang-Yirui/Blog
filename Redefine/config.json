@@ -48,12 +48,6 @@
           "icp": {
             "enable": false
           }
-        },
-        "inject": {
-          "enable": true,
-          "head": [
-            "<script data-swup-reload-script src=\"https://fastly.jsdelivr.net/gh/bd3qif/Resources@main/js/lunar.js\"></script>"
-          ]
         }
       }
     },
@@ -110,12 +104,6 @@
               "url": "https://beian.mps.gov.cn/"
             }
           }
-        },
-        "inject": {
-          "enable": true,
-          "head": [
-            "<script data-swup-reload-script src=\"https://fastly.jsdelivr.net/gh/bd3qif/Resources@main/js/lunar.js\"></script>"
-          ]
         }
       }
     }
