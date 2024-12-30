@@ -90,7 +90,7 @@ jobs:
           cd ${{ github.workspace }}
           hexo init blog
           cd blog
-          git clone https://github.com/EvanNotFound/hexo-theme-redefine.git themes/redefine
+          git clone https://github.com/Zhang-Yirui/hexo-theme-redefine.git themes/redefine
         shell: bash
 
       - name: Insatll npm packages
@@ -187,7 +187,7 @@ jobs:
           cd ${{ github.workspace }}
           hexo init blog
           cd blog
-          git clone https://github.com/Zhang-Yirui/hexo-theme-redefine.git themes/redefine
+          git clone https://github.com/EvanNotFound/hexo-theme-redefine.git themes/redefine
         shell: bash
 
       - name: Insatll npm packages
