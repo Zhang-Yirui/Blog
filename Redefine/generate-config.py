@@ -74,7 +74,8 @@ if __name__ == "__main__":
         download_pandoc()
         github_output = os.getenv('GITHUB_OUTPUT')
         with open(github_output, "r") as f:
-            for line in f.readlines():
+            for line in f:
                 print(line)
+            
     except Exception as e:
         print(f"配置文件解析失败: {e}")
