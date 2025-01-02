@@ -44,6 +44,7 @@ def update_config(old, new):
 
 
 if __name__ == "__main__":
+    github_output = os.getenv('GITHUB_OUTPUT')
     try:
         # 生成配置文件
         yaml = YAML(typ='rt')
@@ -72,13 +73,11 @@ if __name__ == "__main__":
             yaml.dump(theme_config, open(file_path, "w", encoding="utf8"))
         # 下载 Pandoc
         download_pandoc()
-        github_output = os.getenv('GITHUB_OUTPUT')
-        print(github_output)
         with open(github_output, "a") as f:
-            f.write(f"subtitle={home_banner_subtitle_text}\n")
-        with open(github_output, "r") as f:
-            for line in f:
-                print(line)
-            
+            f.write(f"generate-result=success\n")
     except Exception as e:
-        print(f"配置文件解析失败: {e}")
+        with open(github_output, "a") as f:
+            f.write(f"generate-result=fail\nerror={e}\n")
+    
+    with open(github_output, "r") as f:
+        print(f.read())
