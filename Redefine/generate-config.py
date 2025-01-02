@@ -73,6 +73,7 @@ if __name__ == "__main__":
         # 下载 Pandoc
         download_pandoc()
         github_output = os.getenv('GITHUB_OUTPUT')
+        print(github_output)
         with open(github_output, "r") as f:
             for line in f:
                 print(line)
