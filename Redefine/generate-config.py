@@ -74,6 +74,8 @@ if __name__ == "__main__":
         download_pandoc()
         github_output = os.getenv('GITHUB_OUTPUT')
         print(github_output)
+        with open(github_output, "a") as f:
+            f.write(f"subtitle={home_banner_subtitle_text}\n")
         with open(github_output, "r") as f:
             for line in f:
                 print(line)
