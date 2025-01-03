@@ -47,6 +47,8 @@ jobs:
         with:
           name: config-files
           path: |
+            echo ${{ steps.generate-config.outputs.generate-result }}
+            echo ${{ steps.generate-config.outputs.error }}
             ${{ github.workspace }}/Redefine/blog.bd3qif.com/_config.redefine.yml
             ${{ github.workspace }}/Redefine/blog.bd3qif.com/_config.yml
             ${{ github.workspace }}/Redefine/blog.zhangyirui.cn/_config.redefine.yml
