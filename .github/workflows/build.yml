@@ -37,8 +37,6 @@ jobs:
         run: |
           cd ${{ github.workspace }}/Redefine
           python ./generate-config.py
-          echo ${{ steps.generate-config.outputs.generate-result }}
-          echo ${{ steps.generate-config.outputs.error }}
           echo "config-paths=$(pwd)/blog.bd3qif.com/_config.redefine.yml,$(pwd)/blog.bd3qif.com/_config.yml,$(pwd)/blog.zhangyirui.cn/_config.redefine.yml,$(pwd)/blog.zhangyirui.cn/_config.yml" >> $GITHUB_OUTPUT
         shell: bash
       
@@ -47,8 +45,6 @@ jobs:
         with:
           name: config-files
           path: |
-            echo ${{ steps.generate-config.outputs.generate-result }}
-            echo ${{ steps.generate-config.outputs.error }}
             ${{ github.workspace }}/Redefine/blog.bd3qif.com/_config.redefine.yml
             ${{ github.workspace }}/Redefine/blog.bd3qif.com/_config.yml
             ${{ github.workspace }}/Redefine/blog.zhangyirui.cn/_config.redefine.yml
