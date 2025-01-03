@@ -78,6 +78,3 @@ if __name__ == "__main__":
     except Exception as e:
         with open(github_output, "a") as f:
             f.write(f"generate-result=fail\nerror={e}\n")
-    
-    with open(github_output, "r") as f:
-        print(f.read())
