@@ -123,7 +123,7 @@ jobs:
         run: |
           cd ${{ github.workspace }}/blog
           cp ../Redefine/source/.README.md ./public/README.md
-          tar -zcf public-${{ matrix.blog }}.tar.gz ./public
+          tar -zcf public-blog.${{ matrix.blog }}.tar.gz ./public
         shell: bash
 
       - name: Upload config files as artifacts
@@ -133,10 +133,32 @@ jobs:
           path: |
             ${{ github.workspace }}/blog/public-blog.${{ matrix.blog }}.tar.gz
 
+      - name: Deploy the blog to the server over SSH
+        if: ${{ matrix.blog == 'zhangyirui.cn' }}
+        uses: kostya-ten/ssh-server-deploy@v4
+        with:
+          host: ${{ secrets.SERVER1_HOST }}
+          port: ${{ secrets.SERVER1_PORT }}
+          username: ${{ secrets.SERVER1_USERNAME }}
+          private_key: ${{ secrets.SERVER1_PRIVATE_KEY }}
+          scp_source: ${{ github.workspace }}/blog/public-zhangyirui.tar.gz
+          scp_target: ${{ secrets.SERVER1_TARGET }}
+          before_script: |
+            cd ${{ secrets.SERVER1_TARGET }}
+            ls -al
+          after_script: |
+            nohup tar -xzvf ${{ secrets.SERVER1_TARGET }}/public-zhangyirui.tar.gz -C ${{ secrets.SERVER1_TARGET }}/ > ${{ secrets.SERVER1_TARGET }}/nohup.log 2>&1 &
 
-
-
-
+      - name: Deploy the blog to Github Pages
+        if: ${{ matrix.blog == 'bd3qif.com' }}
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          token: ${{ secrets.GH_PAT }}
+          branch: main
+          folder: blog/public
+          git-config-name: ${{ github.actor }}
+          git-config-email: ${{ secrets.GIT_EMAIL }}
+          repository-name: Zhang-Yirui/Zhang-Yirui.github.io
 
 
 
