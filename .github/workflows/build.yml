@@ -34,6 +34,8 @@ jobs:
         run: |
           cd ${{ github.workspace }}/Redefine
           python ./generate-config.py
+          ls -al 
+          ls -al ./pandoc
         shell: bash
       
       - name: Upload files as artifacts
@@ -46,7 +48,7 @@ jobs:
             ${{ github.workspace }}/Redefine/blog.zhangyirui.cn/_config.redefine.yml
             ${{ github.workspace }}/Redefine/blog.zhangyirui.cn/_config.yml
             ${{ github.workspace }}/Redefine/pandoc/pandoc.deb
-  
+
   Generate-And-Deploy-Blog:
     name: Generate and deploy Hexo blogs
     needs: Prepare-required-files
