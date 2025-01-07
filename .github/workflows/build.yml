@@ -66,7 +66,7 @@ jobs:
       
       - name: Install pandoc
         run: |
-          ls -al -R ${{ github.workspace }}
+          ls -al ${{ github.workspace }}
 
   # For-blog_zhangyirui_cn:
   #   name: Generate and deploy a Hexo blog with the Redefine theme for blog.zhangyirui.cn
