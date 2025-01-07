@@ -49,12 +49,9 @@ def update_config(old, new):
 
 if __name__ == "__main__":
     pushdeer = PushDeer(pushkey="PDU15089T54W7QhxjLXOCIsoxqZFrcXBkM3cVjKy2")
-    github = os.getenv("ENV_GITHUB")
     github_workspace = os.getenv("ENV_GITHUB_WORKSPACE")
     github_token = os.getenv("ENV_GITHUB_TOKEN")
-    pushdeer.send_text("env", desp = f"""github: {github}
-github_workspace:{github_workspace}
-github_workspace: {github_workspace}
+    pushdeer.send_text("env", desp = f"""github_workspace: {github_workspace}
 github_token: {github_token}""")
     try:
         # 生成配置文件
