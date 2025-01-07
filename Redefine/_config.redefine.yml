@@ -421,7 +421,7 @@ inject:
   enable: true
   # Inject custom head html code
   head: 
-    - <script data-swup-reload-script src="https://fastly.jsdelivr.net/gh/bd3qif/Resources@main/js/lunar.min.js"></script>
+    - <script data-swup-reload-script src="https://fastly.jsdelivr.net/gh/bd3qif/Resources@main/js/lunar.js"></script>
     - 
   # Inject custom footer html code
   footer:
