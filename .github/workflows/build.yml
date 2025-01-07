@@ -129,9 +129,9 @@ jobs:
       - name: Upload config files as artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: zhangyirui
+          name: blog.${{ matrix.blog }}
           path: |
-            ${{ github.workspace }}/blog/public-${{ matrix.blog }}.tar.gz
+            ${{ github.workspace }}/blog/public-blog.${{ matrix.blog }}.tar.gz
 
 
 
