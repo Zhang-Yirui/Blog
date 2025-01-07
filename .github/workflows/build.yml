@@ -141,13 +141,13 @@ jobs:
           port: ${{ secrets.SERVER1_PORT }}
           username: ${{ secrets.SERVER1_USERNAME }}
           private_key: ${{ secrets.SERVER1_PRIVATE_KEY }}
-          scp_source: ${{ github.workspace }}/blog/public-blog.zhangyirui.tar.gz
+          scp_source: ${{ github.workspace }}/blog/public-blog.${{ matrix.blog }}.tar.gz
           scp_target: ${{ secrets.SERVER1_TARGET }}
           before_script: |
             cd ${{ secrets.SERVER1_TARGET }}
             ls -al
           after_script: |
-            nohup tar -xzvf ${{ secrets.SERVER1_TARGET }}/public-blog.zhangyirui.tar.gz -C ${{ secrets.SERVER1_TARGET }}/ > ${{ secrets.SERVER1_TARGET }}/nohup.log 2>&1 &
+            nohup tar -xzvf ${{ secrets.SERVER1_TARGET }}/public-blog.${{ matrix.blog }}.tar.gz -C ${{ secrets.SERVER1_TARGET }}/ > ${{ secrets.SERVER1_TARGET }}/nohup.log 2>&1 &
 
       - name: Deploy the blog to Github Pages
         if: ${{ matrix.blog == 'bd3qif.com' }}
