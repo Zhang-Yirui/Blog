@@ -30,12 +30,11 @@ def download_pandoc():
     resp.raise_for_status()  # 确保请求成功
     pandoc_version = resp.json().get("tag_name", "3.6")
     print(f"Pandoc 版本: v{pandoc_version}")
-    file_name = f"pandoc.deb"
-    download_url = f"https://github.com/jgm/pandoc/releases/download/{pandoc_version}/{file_name}"
+    download_url = f"https://github.com/jgm/pandoc/releases/download/{pandoc_version}/pandoc-{pandoc_version}-1-amd64.deb"
     resp = requests.head(download_url)
     resp.raise_for_status()
     url = resp.headers.get('Location', '')
-    download(url, os.path.join('./pandoc', file_name))
+    download(url, './pandoc/pandoc.deb')
 
 
 def update_config(old, new):
