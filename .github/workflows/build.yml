@@ -160,16 +160,21 @@ jobs:
           git-config-email: ${{ secrets.GIT_EMAIL }}
           repository-name: Zhang-Yirui/Zhang-Yirui.github.io
 
-  # Generate-GitHub-Release:
-  #   name: Generate GitHub Release
-  #   needs: Generate-And-Deploy-Blog
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Download config files
-  #       uses: actions/download-artifact@v4
-  #       with:
-  #         path: ${{ github.workspace }}/blogs
-  #         merge-multiple: true
+  Generate-GitHub-Release:
+    name: Generate GitHub Release
+    needs: Generate-And-Deploy-Blog
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download config files
+        uses: actions/download-artifact@v4
+        with:
+          path: ${{ github.workspace }}/blogs
+          merge-multiple: true
+      - name: View files
+        run: |
+          echo "--------------------------------------------------"
+          ls -al -R ${{ github.workspace }}/blogs
+          echo "--------------------------------------------------"
 
   #     - name: Package & Compress files
   #       run: |
@@ -198,3 +203,7 @@ jobs:
   #         prerelease: false
   #       env:
   #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Delete the artifact config-files
+        uses: geekyeggo/delete-artifact@v5
+        with:
+          name: config-files
