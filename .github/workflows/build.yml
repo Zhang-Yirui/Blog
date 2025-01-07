@@ -28,14 +28,17 @@ jobs:
           pip install -r ${{ github.workspace }}/Redefine/requirements.txt
           echo "--------------------------------------------------"
           pip list
+          echo "--------------------------------------------------"
         shell: bash
 
       - name: Generate configuration file & download pandoc.deb
+        env: 
+          ENV_GITHUB: ${{ github }}
+          ENV_GITHUB_WORKSPACE : ${{ github.workspace }}
+          ENV_GITHUB_TOKEN : ${{ secrets.GITHUB_TOKEN }}
         run: |
           cd ${{ github.workspace }}/Redefine
           python ./generate-config.py
-          ls -al 
-          ls -al ./pandoc
         shell: bash
       
       - name: Upload files as artifacts
