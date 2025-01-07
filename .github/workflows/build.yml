@@ -67,8 +67,78 @@ jobs:
           name: config-files
       
       - name: Install pandoc
+        run: sudo dpkg -i ${{ github.workspace }}/pandoc/pandoc.deb
+        shell: bash
+
+      - name: Insatll hexo
         run: |
-          ls -al ${{ github.workspace }}
+          echo "--------------------------------------------------"
+          cd ${{ github.workspace }}
+          echo "pandoc version: $(pandoc -v)"
+          echo "nodejs version: $(node -v)"
+          echo "npm version: $(npm -v)"
+          echo "--------------------------------------------------"
+          npm install -g hexo-cli
+          echo "--------------------------------------------------"
+        shell: bash
+
+      - name: Init blog & Install redefine theme
+        run: |
+          cd ${{ github.workspace }}
+          hexo init blog
+          git clone https://github.com/Zhang-Yirui/hexo-theme-redefine.git blog/themes/redefine
+        shell: bash
+
+      - name: Insatll npm packages
+        run: |
+          cd ${{ github.workspace }}/blog
+          npm install hexo-filter-mermaid-diagrams
+          npm install hexo-all-minifier
+          npm install hexo-filter-mathjax
+          npm uninstall hexo-renderer-marked
+          npm install hexo-renderer-pandoc
+          npm uninstall hexo-blog-encrypt
+        shell: bash
+       
+      - name: Copy source files
+        run: |
+          cd ${{ github.workspace }}
+          cp -r ./Redefine/source/ ./blog/
+          cp -r ./Redefine/scaffolds/ ./blog/
+        shell: bash
+        
+      - name: Copy config files
+        run: |
+          cd ${{ github.workspace }}
+          cp ./blog.${{ matrix.blog }}/*.yml ./blog/
+        shell: bash
+
+      - name: Generat blog
+        run: |
+          cd ${{ github.workspace }}/blog
+          hexo g
+        shell: bash
+
+      - name: Add README file & Compress files
+        run: |
+          cd ${{ github.workspace }}/blog
+          cp ../Redefine/source/.README.md ./public/README.md
+          tar -zcf public-${{ matrix.blog }}.tar.gz ./public
+        shell: bash
+
+      - name: Upload config files as artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: zhangyirui
+          path: |
+            ${{ github.workspace }}/blog/public-${{ matrix.blog }}.tar.gz
+
+
+
+
+
+
+
 
   # For-blog_zhangyirui_cn:
   #   name: Generate and deploy a Hexo blog with the Redefine theme for blog.zhangyirui.cn
