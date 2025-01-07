@@ -8,8 +8,10 @@ from tqdm import tqdm
 
 
 def download(file_url, file_path, chunk_size=8192):
+    dir_path, file_name = os.path.split(file_path)
+    os.makedirs(dir_path or './', exist_ok=True)
+    file_path = os.path.join(dir_path or './', file_name or 'downloaded_file.unknown')
     print(f"开始下载文件 `{file_url}` 至 `{file_path}`")
-    os.makedirs(file_path, exist_ok=True)
     resp = requests.head(file_url)
     resp.raise_for_status()
     file_size = int(resp.headers.get('content-length', 0))  # 获取文件大小（字节）
@@ -60,8 +62,8 @@ if __name__ == "__main__":
             home_banner_subtitle_text = theme_config.get("home_banner", {}).get("subtitle", {}).get("text", [])
             result = requests.get("https://api.bd3qif.com/api/v3/getNowDateInfoStr")
             if result.status_code == 200:
-                pushdeer.send_text("home banner subtitle text", desp=f"{home_banner_subtitle_text}")
                 home_banner_subtitle_text.append(result.json().get('date', None))
+                pushdeer.send_text("home banner subtitle text", desp=f"{home_banner_subtitle_text}")
 
         with open("config.json", "r", encoding="utf8") as file:
             my_config = json.load(file)
