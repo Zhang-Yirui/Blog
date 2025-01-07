@@ -8,6 +8,7 @@ from tqdm import tqdm
 
 
 def download(file_url, file_path, chunk_size=8192):
+    os.makedirs(file_path, exist_ok=True)
     resp = requests.head(file_url)
     resp.raise_for_status()
     file_size = int(resp.headers.get('content-length', 0))  # 获取文件大小（字节）
