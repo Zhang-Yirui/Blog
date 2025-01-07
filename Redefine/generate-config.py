@@ -8,6 +8,7 @@ from tqdm import tqdm
 
 
 def download(file_url, file_path, chunk_size=8192):
+    print(f"开始下载文件 `{file_url}` 至 `{file_path}`")
     os.makedirs(file_path, exist_ok=True)
     resp = requests.head(file_url)
     resp.raise_for_status()
@@ -48,7 +49,6 @@ def update_config(old, new):
 if __name__ == "__main__":
     github_output = os.getenv('GITHUB_OUTPUT')
     pushdeer = PushDeer(pushkey="PDU15089T54W7QhxjLXOCIsoxqZFrcXBkM3cVjKy2")
-    pushdeer.send_text("github", desp=f"{os.getenv('github.workspace')}")
     
     try:
         # 生成配置文件
@@ -61,6 +61,7 @@ if __name__ == "__main__":
             home_banner_subtitle_text = theme_config.get("home_banner", {}).get("subtitle", {}).get("text", [])
             result = requests.get("https://api.bd3qif.com/api/v3/getNowDateInfoStr")
             if result.status_code == 200:
+                pushdeer.send_text("home banner subtitle text", desp=f"{home_banner_subtitle_text}")
                 home_banner_subtitle_text.append(result.json().get('date', None))
 
         with open("config.json", "r", encoding="utf8") as file:
@@ -78,8 +79,5 @@ if __name__ == "__main__":
             yaml.dump(theme_config, open(file_path, "w", encoding="utf8"))
         # 下载 Pandoc
         download_pandoc()
-        with open(github_output, "a") as f:
-            f.write(f"generate-result=success\n")
     except Exception as e:
-        with open(github_output, "a") as f:
-            f.write(f"generate-result=fail\nerror={e}\n")
+        raise e
