@@ -10,11 +10,9 @@ permissions:
   contents: write
 
 jobs:
-  Generate-Config:
-    name: Generate configuration file
+  Prepare-required-files:
+    name: Prepare the required files
     runs-on: ubuntu-latest
-    outputs:
-      config-path: ${{ steps.generate-config.outputs.config-paths }}
 
     steps:
       - name: Get files from repository
@@ -32,15 +30,13 @@ jobs:
           pip list
         shell: bash
 
-      - name: Generate configs
-        id: generate-config
+      - name: Generate configuration file & download pandoc.deb
         run: |
           cd ${{ github.workspace }}/Redefine
           python ./generate-config.py
-          echo "config-paths=$(pwd)/blog.bd3qif.com/_config.redefine.yml,$(pwd)/blog.bd3qif.com/_config.yml,$(pwd)/blog.zhangyirui.cn/_config.redefine.yml,$(pwd)/blog.zhangyirui.cn/_config.yml" >> $GITHUB_OUTPUT
         shell: bash
       
-      - name: Upload config files as artifacts
+      - name: Upload files as artifacts
         uses: actions/upload-artifact@v4
         with:
           name: config-files
@@ -49,224 +45,246 @@ jobs:
             ${{ github.workspace }}/Redefine/blog.bd3qif.com/_config.yml
             ${{ github.workspace }}/Redefine/blog.zhangyirui.cn/_config.redefine.yml
             ${{ github.workspace }}/Redefine/blog.zhangyirui.cn/_config.yml
-
-  For-blog_zhangyirui_cn:
-    name: Generate and deploy a Hexo blog with the Redefine theme for blog.zhangyirui.cn
-    needs: Generate-Config
+            ${{ github.workspace }}/Redefine/pandoc/pandoc.deb
+  
+  Generate-And-Deploy-Blog:
+    name: Generate and deploy Hexo blogs
+    needs: Prepare-required-files
     runs-on: ubuntu-latest
-    outputs:
-      config-path: ${{ steps.generate-blog-zhangyirui-cn.outputs.config-paths }}
-
+    strategy:
+      matrix:
+        blog: [zhangyirui.cn, bd3qif.com]
+      
     steps:
       - name: Get files from repository
         uses: actions/checkout@v2
 
-      - name: Download config files
+      - name: Download files
         uses: actions/download-artifact@v4
         with:
           name: config-files
-
+      
       - name: Install pandoc
         run: |
-          version=$(echo "$(curl -s https://api.github.com/repos/jgm/pandoc/releases/latest)" | grep 'tag_name' | cut -d'"' -f4)
-          wget -c https://github.com/jgm/pandoc/releases/download/$version/pandoc-$version-1-amd64.deb
-          sudo dpkg -i pandoc-$version-1-amd64.deb
-        shell: bash
+          ls -al -R ${{ github.workspace }}
 
-      - name: Insatll hexo
-        run: |
-          echo "--------------------------------------------------"
-          cd ${{ github.workspace }}
-          echo "pandoc version: $(pandoc -v)"
-          echo "nodejs version: $(node -v)"
-          echo "npm version: $(npm -v)"
-          echo "--------------------------------------------------"
-          npm install -g hexo-cli
-          echo "--------------------------------------------------"
-        shell: bash
+  # For-blog_zhangyirui_cn:
+  #   name: Generate and deploy a Hexo blog with the Redefine theme for blog.zhangyirui.cn
+  #   needs: Generate-Config
+  #   runs-on: ubuntu-latest
+  #   outputs:
+  #     config-path: ${{ steps.generate-blog-zhangyirui-cn.outputs.config-paths }}
 
-      - name: Init blog & Install redefine theme
-        run: |
-          cd ${{ github.workspace }}
-          hexo init blog
-          cd blog
-          git clone https://github.com/Zhang-Yirui/hexo-theme-redefine.git themes/redefine
-        shell: bash
+  #   steps:
+  #     - name: Get files from repository
+  #       uses: actions/checkout@v2
 
-      - name: Insatll npm packages
-        run: |
-          cd ${{ github.workspace }}/blog
-          npm install hexo-filter-mermaid-diagrams
-          npm install hexo-all-minifier
-          npm install hexo-filter-mathjax
-          npm uninstall hexo-renderer-marked
-          npm install hexo-renderer-pandoc
-          npm uninstall hexo-blog-encrypt
-        shell: bash
+  #     - name: Download config files
+  #       uses: actions/download-artifact@v4
+  #       with:
+  #         name: config-files
 
-      - name: Copy files
-        run: |
-          cd ${{ github.workspace }}
-          cp ./blog.zhangyirui.cn/*.yml ./blog/
-          cp -r ./Redefine/source/ ./blog/
-          cp -r ./Redefine/scaffolds ./blog/
-        shell: bash
+  #     - name: Install pandoc
+  #       run: |
+  #         version=$(echo "$(curl -s https://api.github.com/repos/jgm/pandoc/releases/latest)" | grep 'tag_name' | cut -d'"' -f4)
+  #         wget -c https://github.com/jgm/pandoc/releases/download/$version/pandoc-$version-1-amd64.deb
+  #         sudo dpkg -i pandoc-$version-1-amd64.deb
+  #       shell: bash
+
+  #     - name: Insatll hexo
+  #       run: |
+  #         echo "--------------------------------------------------"
+  #         cd ${{ github.workspace }}
+  #         echo "pandoc version: $(pandoc -v)"
+  #         echo "nodejs version: $(node -v)"
+  #         echo "npm version: $(npm -v)"
+  #         echo "--------------------------------------------------"
+  #         npm install -g hexo-cli
+  #         echo "--------------------------------------------------"
+  #       shell: bash
+
+  #     - name: Init blog & Install redefine theme
+  #       run: |
+  #         cd ${{ github.workspace }}
+  #         hexo init blog
+  #         cd blog
+  #         git clone https://github.com/Zhang-Yirui/hexo-theme-redefine.git themes/redefine
+  #       shell: bash
+
+  #     - name: Insatll npm packages
+  #       run: |
+  #         cd ${{ github.workspace }}/blog
+  #         npm install hexo-filter-mermaid-diagrams
+  #         npm install hexo-all-minifier
+  #         npm install hexo-filter-mathjax
+  #         npm uninstall hexo-renderer-marked
+  #         npm install hexo-renderer-pandoc
+  #         npm uninstall hexo-blog-encrypt
+  #       shell: bash
+
+  #     - name: Copy files
+  #       run: |
+  #         cd ${{ github.workspace }}
+  #         cp ./blog.zhangyirui.cn/*.yml ./blog/
+  #         cp -r ./Redefine/source/ ./blog/
+  #         cp -r ./Redefine/scaffolds ./blog/
+  #       shell: bash
         
-      - name: Generat blog
-        run: |
-          cd ${{ github.workspace }}/blog
-          hexo g
-        shell: bash
+  #     - name: Generat blog
+  #       run: |
+  #         cd ${{ github.workspace }}/blog
+  #         hexo g
+  #       shell: bash
 
-      - name: Add README file & Compress files
-        id: generate-blog-zhangyirui-cn
-        run: |
-          cd ${{ github.workspace }}/blog
-          cp ../Redefine/source/.README.md ./public/README.md
-          tar -zcf public-zhangyirui.tar.gz ./public
-          echo "config-paths=$(pwd)/public-zhangyirui.tar.gz" >> $GITHUB_OUTPUT
-        shell: bash
+  #     - name: Add README file & Compress files
+  #       id: generate-blog-zhangyirui-cn
+  #       run: |
+  #         cd ${{ github.workspace }}/blog
+  #         cp ../Redefine/source/.README.md ./public/README.md
+  #         tar -zcf public-zhangyirui.tar.gz ./public
+  #         echo "config-paths=$(pwd)/public-zhangyirui.tar.gz" >> $GITHUB_OUTPUT
+  #       shell: bash
 
-      - name: Upload config files as artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: zhangyirui
-          path: |
-            ${{ github.workspace }}/blog/public-zhangyirui.tar.gz
+  #     - name: Upload config files as artifacts
+  #       uses: actions/upload-artifact@v4
+  #       with:
+  #         name: zhangyirui
+  #         path: |
+  #           ${{ github.workspace }}/blog/public-zhangyirui.tar.gz
 
-      - name: SSH Server Deploy
-        uses: kostya-ten/ssh-server-deploy@v4
-        with:
-          host: ${{ secrets.SERVER1_HOST }}
-          port: ${{ secrets.SERVER1_PORT }}
-          username: ${{ secrets.SERVER1_USERNAME }}
-          private_key: ${{ secrets.SERVER1_PRIVATE_KEY }}
-          scp_source: ${{ github.workspace }}/blog/public-zhangyirui.tar.gz
-          scp_target: ${{ secrets.SERVER1_TARGET }}
-          before_script: |
-            cd ${{ secrets.SERVER1_TARGET }}
-            ls -al
-          after_script: |
-            nohup tar -xzvf ${{ secrets.SERVER1_TARGET }}/public-zhangyirui.tar.gz -C ${{ secrets.SERVER1_TARGET }}/ > ${{ secrets.SERVER1_TARGET }}/nohup.log 2>&1 &
+  #     - name: SSH Server Deploy
+  #       uses: kostya-ten/ssh-server-deploy@v4
+  #       with:
+  #         host: ${{ secrets.SERVER1_HOST }}
+  #         port: ${{ secrets.SERVER1_PORT }}
+  #         username: ${{ secrets.SERVER1_USERNAME }}
+  #         private_key: ${{ secrets.SERVER1_PRIVATE_KEY }}
+  #         scp_source: ${{ github.workspace }}/blog/public-zhangyirui.tar.gz
+  #         scp_target: ${{ secrets.SERVER1_TARGET }}
+  #         before_script: |
+  #           cd ${{ secrets.SERVER1_TARGET }}
+  #           ls -al
+  #         after_script: |
+  #           nohup tar -xzvf ${{ secrets.SERVER1_TARGET }}/public-zhangyirui.tar.gz -C ${{ secrets.SERVER1_TARGET }}/ > ${{ secrets.SERVER1_TARGET }}/nohup.log 2>&1 &
 
-  For-blog_bd3qif_com:
-    name: Generate and deploy a Hexo blog with the Redefine theme for blog.bd3qif.com
-    needs: Generate-Config
-    runs-on: ubuntu-latest
+  # For-blog_bd3qif_com:
+  #   name: Generate and deploy a Hexo blog with the Redefine theme for blog.bd3qif.com
+  #   needs: Generate-Config
+  #   runs-on: ubuntu-latest
 
-    steps:
-      - name: Get files from repository
-        uses: actions/checkout@v2
+  #   steps:
+  #     - name: Get files from repository
+  #       uses: actions/checkout@v2
 
-      - name: Download config files
-        uses: actions/download-artifact@v4
-        with:
-          name: config-files
+  #     - name: Download config files
+  #       uses: actions/download-artifact@v4
+  #       with:
+  #         name: config-files
 
-      - name: Install pandoc
-        run: |
-          version=$(echo "$(curl -s https://api.github.com/repos/jgm/pandoc/releases/latest)" | grep 'tag_name' | cut -d'"' -f4)
-          wget -c https://github.com/jgm/pandoc/releases/download/$version/pandoc-$version-1-amd64.deb
-          sudo dpkg -i pandoc-$version-1-amd64.deb
-        shell: bash
+  #     - name: Install pandoc
+  #       run: |
+  #         version=$(echo "$(curl -s https://api.github.com/repos/jgm/pandoc/releases/latest)" | grep 'tag_name' | cut -d'"' -f4)
+  #         wget -c https://github.com/jgm/pandoc/releases/download/$version/pandoc-$version-1-amd64.deb
+  #         sudo dpkg -i pandoc-$version-1-amd64.deb
+  #       shell: bash
 
-      - name: Insatll hexo
-        run: |
-          echo "--------------------------------------------------"
-          cd ${{ github.workspace }}
-          echo "pandoc version: $(pandoc -v)"
-          echo "nodejs version: $(node -v)"
-          echo "npm version: $(npm -v)"
-          echo "--------------------------------------------------"
-          npm install -g hexo-cli
-          echo "--------------------------------------------------"
-        shell: bash
+  #     - name: Insatll hexo
+  #       run: |
+  #         echo "--------------------------------------------------"
+  #         cd ${{ github.workspace }}
+  #         echo "pandoc version: $(pandoc -v)"
+  #         echo "nodejs version: $(node -v)"
+  #         echo "npm version: $(npm -v)"
+  #         echo "--------------------------------------------------"
+  #         npm install -g hexo-cli
+  #         echo "--------------------------------------------------"
+  #       shell: bash
 
-      - name: Init blog & Install redefine theme
-        run: |
-          cd ${{ github.workspace }}
-          hexo init blog
-          cd blog
-          git clone https://github.com/EvanNotFound/hexo-theme-redefine.git themes/redefine
-        shell: bash
+  #     - name: Init blog & Install redefine theme
+  #       run: |
+  #         cd ${{ github.workspace }}
+  #         hexo init blog
+  #         cd blog
+  #         git clone https://github.com/EvanNotFound/hexo-theme-redefine.git themes/redefine
+  #       shell: bash
 
-      - name: Insatll npm packages
-        run: |
-          cd ${{ github.workspace }}/blog
-          npm install hexo-filter-mermaid-diagrams
-          npm install hexo-all-minifier
-          npm install hexo-filter-mathjax
-          npm uninstall hexo-renderer-marked
-          npm install hexo-renderer-pandoc
-          npm uninstall hexo-blog-encrypt
-        shell: bash
+  #     - name: Insatll npm packages
+  #       run: |
+  #         cd ${{ github.workspace }}/blog
+  #         npm install hexo-filter-mermaid-diagrams
+  #         npm install hexo-all-minifier
+  #         npm install hexo-filter-mathjax
+  #         npm uninstall hexo-renderer-marked
+  #         npm install hexo-renderer-pandoc
+  #         npm uninstall hexo-blog-encrypt
+  #       shell: bash
 
-      - name: Copy files
-        run: |
-          cd ${{ github.workspace }}
-          cp ./blog.bd3qif.com/*.yml ./blog/
-          cp -r ./Redefine/source/ ./blog/
-          cp -r ./Redefine/scaffolds ./blog/
-        shell: bash
+  #     - name: Copy files
+  #       run: |
+  #         cd ${{ github.workspace }}
+  #         cp ./blog.bd3qif.com/*.yml ./blog/
+  #         cp -r ./Redefine/source/ ./blog/
+  #         cp -r ./Redefine/scaffolds ./blog/
+  #       shell: bash
         
-      - name: Generat blog
-        run: |
-          cd ${{ github.workspace }}/blog
-          hexo g
-        shell: bash
+  #     - name: Generat blog
+  #       run: |
+  #         cd ${{ github.workspace }}/blog
+  #         hexo g
+  #       shell: bash
 
-      - name: Add README file & Compress files
-        id: generate-blog-bd3qif-com
-        run: |
-          cd ${{ github.workspace }}/blog
-          cp ../Redefine/source/.README.md ./public/README.md
-          tar -zcf public-bd3qif.tar.gz ./public
-          echo "config-paths=$(pwd)/public-bd3qif.tar.gz" >> $GITHUB_OUTPUT
-        shell: bash
+  #     - name: Add README file & Compress files
+  #       id: generate-blog-bd3qif-com
+  #       run: |
+  #         cd ${{ github.workspace }}/blog
+  #         cp ../Redefine/source/.README.md ./public/README.md
+  #         tar -zcf public-bd3qif.tar.gz ./public
+  #         echo "config-paths=$(pwd)/public-bd3qif.tar.gz" >> $GITHUB_OUTPUT
+  #       shell: bash
       
-      - name: Upload config files as artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: bd3qif
-          path: |
-            ${{ github.workspace }}/blog/public-bd3qif.tar.gz
+  #     - name: Upload config files as artifacts
+  #       uses: actions/upload-artifact@v4
+  #       with:
+  #         name: bd3qif
+  #         path: |
+  #           ${{ github.workspace }}/blog/public-bd3qif.tar.gz
       
-      - name: Deploy pages
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          token: ${{ secrets.GH_PAT }}
-          branch: main
-          folder: blog/public
-          git-config-name: ${{ github.actor }}
-          git-config-email: ${{ secrets.GIT_EMAIL }}
-          repository-name: Zhang-Yirui/Zhang-Yirui.github.io
+  #     - name: Deploy pages
+  #       uses: JamesIves/github-pages-deploy-action@v4
+  #       with:
+  #         token: ${{ secrets.GH_PAT }}
+  #         branch: main
+  #         folder: blog/public
+  #         git-config-name: ${{ github.actor }}
+  #         git-config-email: ${{ secrets.GIT_EMAIL }}
+  #         repository-name: Zhang-Yirui/Zhang-Yirui.github.io
 
-  Generate-GitHub-Release:
-    name: Generate GitHub Release
-    needs: [For-blog_zhangyirui_cn, For-blog_bd3qif_com]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Download config files
-        uses: actions/download-artifact@v4
-        with:
-          path: ${{ github.workspace }}/blogs
-          merge-multiple: true
+  # Generate-GitHub-Release:
+  #   name: Generate GitHub Release
+  #   needs: [For-blog_zhangyirui_cn, For-blog_bd3qif_com]
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Download config files
+  #       uses: actions/download-artifact@v4
+  #       with:
+  #         path: ${{ github.workspace }}/blogs
+  #         merge-multiple: true
 
-      - name: Package & Compress files
-        run: |
-          echo "--------------------------------------------------"
-          mv ${{ github.workspace }}/blogs/public-bd3qif.tar.gz ${{ github.workspace }}/blogs/blog.bd3qif.com/public.tar.gz
-          mv ${{ github.workspace }}/blogs/public-zhangyirui.tar.gz ${{ github.workspace }}/blogs/blog.zhangyirui.cn/public.tar.gz
-          cd ${{ github.workspace }}/blogs
-          tar -zcf blog.zhangyirui.cn.tar.gz ./blog.zhangyirui.cn
-          tar -zcf blog.bd3qif.com.tar.gz ./blog.bd3qif.com
-          ls -R ${{ github.workspace }}
-          echo "--------------------------------------------------"
-          echo "$GITHUB_OUTPUT"
-          echo "--------------------------------------------------"
-          cat $GITHUB_OUTPUT
-          ls $GITHUB_OUTPUT
-        shell: bash
+  #     - name: Package & Compress files
+  #       run: |
+  #         echo "--------------------------------------------------"
+  #         mv ${{ github.workspace }}/blogs/public-bd3qif.tar.gz ${{ github.workspace }}/blogs/blog.bd3qif.com/public.tar.gz
+  #         mv ${{ github.workspace }}/blogs/public-zhangyirui.tar.gz ${{ github.workspace }}/blogs/blog.zhangyirui.cn/public.tar.gz
+  #         cd ${{ github.workspace }}/blogs
+  #         tar -zcf blog.zhangyirui.cn.tar.gz ./blog.zhangyirui.cn
+  #         tar -zcf blog.bd3qif.com.tar.gz ./blog.bd3qif.com
+  #         ls -R ${{ github.workspace }}
+  #         echo "--------------------------------------------------"
+  #         echo "$GITHUB_OUTPUT"
+  #         echo "--------------------------------------------------"
+  #         cat $GITHUB_OUTPUT
+  #         ls $GITHUB_OUTPUT
+  #       shell: bash
 
       # - name: Create GitHub release
       #   id: create_release
