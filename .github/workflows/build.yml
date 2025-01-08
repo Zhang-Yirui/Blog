@@ -159,6 +159,7 @@ jobs:
           branch: main
           folder: blog/public
           git-config-name: ${{ github.actor }}
+          git-config-email: 1477997018@qq.com
           repository-name: Zhang-Yirui/Zhang-Yirui.github.io
 
   Generate-GitHub-Release:
