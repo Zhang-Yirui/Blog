@@ -34,7 +34,7 @@ jobs:
       - name: Generate configuration file & download pandoc.deb
         env: 
           ENV_GITHUB_WORKSPACE : ${{ github.workspace }}
-          ENV_GITHUB_TOKEN : ${{ secrets.GITHUB_TOKEN }}
+          ENV_GITHUB_TOKEN : ${{ secrets.GH_PAT }}
           ENV_GITHUB_ACTOR: ${{ github.actor }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
