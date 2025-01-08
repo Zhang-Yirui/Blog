@@ -35,6 +35,7 @@ jobs:
         env: 
           ENV_GITHUB_WORKSPACE : ${{ github.workspace }}
           ENV_GITHUB_TOKEN : ${{ secrets.GITHUB_TOKEN }}
+          ENV_GITHUB_ACTOR: ${{ github.actor }}
         run: |
           cd ${{ github.workspace }}/Redefine
           python ./generate-config.py

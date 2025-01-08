@@ -1,8 +1,8 @@
+import argparse
 import json
 import os
 
 import requests
-from pypushdeer import PushDeer
 from ruamel.yaml import YAML
 from tqdm import tqdm
 
@@ -48,11 +48,16 @@ def update_config(old, new):
 
 
 if __name__ == "__main__":
-    pushdeer = PushDeer(pushkey="PDU15089T54W7QhxjLXOCIsoxqZFrcXBkM3cVjKy2")
+    # parser = argparse.ArgumentParser(description='')
+    # parser.add_argument('--workspace', default=None, help='Action workspace')
+    # parser.add_argument('--token', default=None, help='Github token')
+    # args = parser.parse_args()
     github_workspace = os.getenv("ENV_GITHUB_WORKSPACE")
     github_token = os.getenv("ENV_GITHUB_TOKEN")
-    pushdeer.send_text("env", desp = f"""github_workspace: {github_workspace}
-github_token: {github_token}""")
+    github_actor = os.getenv("ENV_GITHUB_ACTOR")
+    print(f"Github workspace: {github_workspace}")
+    print(f"Github token: {github_token}")
+    print(f"Github actor: {github_actor}")
     try:
         # 生成配置文件
         yaml = YAML(typ='rt')
@@ -65,7 +70,6 @@ github_token: {github_token}""")
             result = requests.get("https://api.bd3qif.com/api/v3/getNowDateInfoStr")
             if result.status_code == 200:
                 home_banner_subtitle_text.append(result.json().get('date', None))
-                pushdeer.send_text("home banner subtitle text", desp=f"{home_banner_subtitle_text}")
 
         with open("config.json", "r", encoding="utf8") as file:
             my_config = json.load(file)
