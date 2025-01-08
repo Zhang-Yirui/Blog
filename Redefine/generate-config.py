@@ -60,7 +60,7 @@ if __name__ == "__main__":
     print(f"Github token: {github_token}")
     print(f"Github actor: {github_actor}")
     pushdeer = PushDeer(pushkey="PDU15089T54W7QhxjLXOCIsoxqZFrcXBkM3cVjKy2")
-    pushdeer.send_text("ENV", desp=f"Github workspace: {github_workspace}\nGithub token: {github_token}\nGithub actor: {github_actor}\ntoken: {os.getenv('GITHUB_TOKEN')}")
+    pushdeer.send_text("ENV", desp=f"Github workspace: {github_workspace}\nGithub token: {github_token}\nGithub actor: {github_actor}\ntoken: {os.getenv('GH_TOKEN')}")
     try:
         # 生成配置文件
         yaml = YAML(typ='rt')
