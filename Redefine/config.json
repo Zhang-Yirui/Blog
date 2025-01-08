@@ -36,11 +36,6 @@
           "logo": "/images/R-logo.svg",
           "avatar": "/images/R-avatar.svg"
         },
-        "home_banner": {
-          "subtitle": {
-            "text": null
-          }
-        },
         "comment": {
           "enable": true
         },
@@ -84,11 +79,6 @@
           "favicon": "/images/R-favicon.svg",
           "logo": "/images/R-logo.svg",
           "avatar": "/images/R-avatar.svg"
-        },
-        "home_banner": {
-          "subtitle": {
-            "text": null
-          }
         },
         "comment": {
           "enable": false

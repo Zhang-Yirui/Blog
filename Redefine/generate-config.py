@@ -53,10 +53,8 @@ if __name__ == "__main__":
     # parser.add_argument('--workspace', default=None, help='Action workspace')
     # parser.add_argument('--token', default=None, help='Github token')
     # args = parser.parse_args()
-    github_workspace = os.getenv("ENV_GITHUB_WORKSPACE")
-    github_token = os.getenv("ENV_GITHUB_TOKEN")
+    github_token = os.getenv("GH_TOKEN")
     github_actor = os.getenv("ENV_GITHUB_ACTOR")
-    print(f"Github workspace: {github_workspace}")
     print(f"Github token: {github_token}")
     print(f"Github actor: {github_actor}")
     pushdeer = PushDeer(pushkey="PDU15089T54W7QhxjLXOCIsoxqZFrcXBkM3cVjKy2")
@@ -64,21 +62,16 @@ if __name__ == "__main__":
     try:
         # 生成配置文件
         yaml = YAML(typ='rt')
-        with open("_config.yml", "r", encoding="utf8") as f1:
-            blog_config = yaml.load(f1)
+        with open("_config.yml", "r", encoding="utf8") as f:
+            blog_config = yaml.load(f)
 
-        with open("_config.redefine.yml", "r", encoding="utf8") as f1:
-            theme_config = yaml.load(f1)
-            home_banner_subtitle_text = theme_config.get("home_banner", {}).get("subtitle", {}).get("text", [])
-            result = requests.get("https://api.bd3qif.com/api/v3/getNowDateInfoStr")
-            if result.status_code == 200:
-                home_banner_subtitle_text.append(result.json().get('date', None))
+        with open("_config.redefine.yml", "r", encoding="utf8") as f:
+            theme_config = yaml.load(f)
 
-        with open("config.json", "r", encoding="utf8") as file:
-            my_config = json.load(file)
+        with open("config.json", "r", encoding="utf8") as f:
+            my_config = json.load(f)
 
         for config in my_config.get("configs", []):
-            config.get('theme-config', {}).get('home_banner', {}).get('subtitle', {})['text'] = home_banner_subtitle_text
             path_dir = config.get("blog-url", ".")
             os.makedirs(path_dir, exist_ok=True)
             update_config(blog_config, config.get("blog-config", dict()))
