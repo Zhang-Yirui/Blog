@@ -34,7 +34,7 @@ jobs:
       - name: Generate configuration file & download pandoc.deb
         env: 
           ENV_GITHUB_ACTOR: ${{ github.actor }}
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           cd ${{ github.workspace }}/Redefine
           python ./generate-config.py
@@ -155,11 +155,10 @@ jobs:
         if: ${{ matrix.blog == 'bd3qif.com' }}
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GH_TOKEN }}
           branch: main
           folder: blog/public
           git-config-name: ${{ github.actor }}
-          git-config-email: 1477997018@qq.com
           repository-name: Zhang-Yirui/Zhang-Yirui.github.io
 
   Generate-GitHub-Release:
