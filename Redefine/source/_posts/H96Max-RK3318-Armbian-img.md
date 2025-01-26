@@ -369,17 +369,17 @@ sudo dpkg -i homeassistant-supervised.deb
 
 之后，没有问题就会出现选项卡，我们选择`qemuarm-64`：
 
-![choose_the_type](https://imghub.bd3qif.com/2025/01/9/2025019195343_0d1124276c4c0dd8d5c84abbabc5de1c_choose_the_type.jpg)
+![choose_the_type](https://files.bd3qif.com/2025/01/27/20250127020911_0d1124276c4c0dd8d5c84abbabc5de1c_2025019195343_0d1124276c4c0dd8d5c84abbabc5de1c_choose_the_type.jpg.jpeg)
 
 **p.s.安装过程可能要很久，如果还是不行，记得科学一下再重新安装。**
 
 使用`docker ps`命令，查看Supervised的容器状态（如果并没有Homeassistant容器，等一段时间再试试，期间保持设备运行，Homeassistant会组建初始化完成）：
 
-![success_install](https://imghub.bd3qif.com/2025/01/9/2025019195351_29a867f12ab5894de9f5d1b796ac4716_success_install.jpg)
+![success_install](https://files.bd3qif.com/2025/01/27/20250127020917_29a867f12ab5894de9f5d1b796ac4716_2025019195351_29a867f12ab5894de9f5d1b796ac4716_success_install.jpg.jpeg)
 
 进入`ip:4357`，可以查看`Supervised`的状态：
 
-![supervised_state](https://imghub.bd3qif.com/2025/01/9/2025019195355_9c6a1bbd4f80e09da4f7872609cd296c_supervised_state.jpg)
+![supervised_state](https://files.bd3qif.com/2025/01/27/20250127020920_9c6a1bbd4f80e09da4f7872609cd296c_2025019195355_9c6a1bbd4f80e09da4f7872609cd296c_supervised_state.jpg.jpeg)
 
 但此时`ip:8123`无法进入Home Assisistant Supervised的管理页面，需要重启一次设备：
 
@@ -410,29 +410,29 @@ cd .. && rm -rf hacsaa
 
 然后在管理页面，点击配置 -> 系统->重新启动，等待重启完成；
 
-![reboot_hass](https://imghub.bd3qif.com/2025/01/9/2025019195402_98e9b2f3fb8669fd96e9ec00a647c407_reboot_hass.jpg)
+![reboot_hass](https://files.bd3qif.com/2025/01/27/20250127020946_98e9b2f3fb8669fd96e9ec00a647c407_2025019195402_98e9b2f3fb8669fd96e9ec00a647c407_reboot_hass.jpg.jpeg)
 
 重启完成后，在配置-设备与服务-集成中点击添加集成；
 
-![add_integration](https://imghub.bd3qif.com/2025/01/9/2025019195405_bc471f8976932f440501695d2e07a3c6_add_integration.jpg)
+![add_integration](https://files.bd3qif.com/2025/01/27/20250127020949_bc471f8976932f440501695d2e07a3c6_2025019195405_bc471f8976932f440501695d2e07a3c6_add_integration.jpg.jpeg)
 
 在搜索框中搜索HACS，安装。（选择框全选上）
 
-![](https://imghub.bd3qif.com/2025/01/9/2025019195417_2525c958cf0a5e001eac5564ea51812b_hacs-1.jpg)
+![hacs-1](https://files.bd3qif.com/2025/01/27/20250127020955_2525c958cf0a5e001eac5564ea51812b_2025019195417_2525c958cf0a5e001eac5564ea51812b_hacs-1.jpg.jpeg)
 
-![hacs-2](https://imghub.bd3qif.com/2025/01/9/2025019195410_a037828993f273d9f4416565fed8bba8_hacs-2.jpg)
+![hacs-2](https://files.bd3qif.com/2025/01/27/20250127020957_a037828993f273d9f4416565fed8bba8_2025019195410_a037828993f273d9f4416565fed8bba8_hacs-2.jpg.jpeg)
 
 此时你要有一个github账号并登录
 
-![hacs-3](https://imghub.bd3qif.com/2025/01/9/2025019195424_e05513e22931082f93327427b55dc40d_hacs-3.jpg)
+![hacs-3](https://files.bd3qif.com/2025/01/27/20250127020959_e05513e22931082f93327427b55dc40d_2025019195424_e05513e22931082f93327427b55dc40d_hacs-3.jpg.jpeg)
 
-![hacs-4](https://imghub.bd3qif.com/2025/01/9/2025019195434_7b83ba746252a9b7d0833810b38b430c_hacs-4.jpg)
+![hacs-4](https://files.bd3qif.com/2025/01/27/20250127021027_7b83ba746252a9b7d0833810b38b430c_2025019195434_7b83ba746252a9b7d0833810b38b430c_hacs-4.jpg.jpeg)
 
-![hacs-5](https://imghub.bd3qif.com/2025/01/9/2025019195442_96952cf7c82f6977475663a0dd5561c2_hacs-5.jpg)
+![hacs-5](https://files.bd3qif.com/2025/01/27/20250127021055_96952cf7c82f6977475663a0dd5561c2_2025019195442_96952cf7c82f6977475663a0dd5561c2_hacs-5.jpg.jpeg)
 
-![hacs-6](https://imghub.bd3qif.com/2025/01/9/2025019195447_a7389bc7106402f31287d9892f4c156d_hacs-6.jpg)
+![hacs-6](https://files.bd3qif.com/2025/01/27/20250127021041_a7389bc7106402f31287d9892f4c156d_2025019195447_a7389bc7106402f31287d9892f4c156d_hacs-6.jpg.jpeg)
 
-![hacs-7](https://imghub.bd3qif.com/2025/01/9/2025019195507_89caedf5f7a74a7b4ab04ff8e44917dc_hacs-7.jpg)
+![hacs-7](https://files.bd3qif.com/2025/01/27/20250127021111_89caedf5f7a74a7b4ab04ff8e44917dc_2025019195507_89caedf5f7a74a7b4ab04ff8e44917dc_hacs-7.jpg.jpeg)
 
 到此，你的HACS便安装完毕！
 

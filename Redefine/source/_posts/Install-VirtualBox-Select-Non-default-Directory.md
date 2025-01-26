@@ -7,7 +7,7 @@ tags:
 
 安装 **`VirtualBox-7.1.4`** 选择非默认目录或非C盘目录时，出现 `Invalid installation directory` 的提示。
 
-![](https://imghub.bd3qif.com/2024/11/14/20241114224712_066645c15df7a688cce9f217ba8c0774_6730a283078cb.png)
+![](https://files.bd3qif.com/2025/01/27/20250127021248_066645c15df7a688cce9f217ba8c0774_20241114224712_066645c15df7a688cce9f217ba8c0774_6730a283078cb.png)
 
 
 解决方法如下：

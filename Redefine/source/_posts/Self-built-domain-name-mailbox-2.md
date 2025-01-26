@@ -67,7 +67,7 @@ Escape character is '^]'.
 
 则证明该服务器25端口正常的，可以进行部署邮局。接着输入`quit`并回车退出。
 
-![](https://imghub.bd3qif.com/2024/11/14/20241114224752_9385013fcbeb14160c8c0dad5e914640_67359fef9de34.jpg.jpeg)
+![](https://files.bd3qif.com/2025/01/27/20250127021357_9385013fcbeb14160c8c0dad5e914640_20241114224752_9385013fcbeb14160c8c0dad5e914640_67359fef9de34.jpg.jpeg)
 
 若输出 `Trying 183.47.101.192... telnet: connect to address 183.47.101.192: Connection timed out` 之类的信息，则可以放弃部署了。
 
@@ -114,7 +114,7 @@ docker run -d \
    -t analogic/poste.io:latest
 ```
 
-![](https://imghub.bd3qif.com/2024/11/14/20241114224756_36a0687d7f8a14e9249d2dc0728c26a4_6735a89bca5b2.jpg.jpeg)
+![](https://files.bd3qif.com/2025/01/27/20250127021402_36a0687d7f8a14e9249d2dc0728c26a4_20241114224756_36a0687d7f8a14e9249d2dc0728c26a4_6735a89bca5b2.jpg.jpeg)
 
 如果需要与宝塔和其他网站服务共存，docker命令可以参考下面的，将80和443端口映射到其他端口，然后用反向代理
 
@@ -138,27 +138,27 @@ docker run -d \
 
 容器启动后，在浏览器地址栏输入 `https://服务器IP/admin/install/server` 或者是 `https://你的域名/admin/install/server` 进入配置页面。
 
-![](https://imghub.bd3qif.com/2024/11/14/20241114224806_758108c0e014e3ac4f34cb6ba5ccd849_6735ae91b2069.jpg.jpeg)
+![](https://files.bd3qif.com/2025/01/27/20250127021405_758108c0e014e3ac4f34cb6ba5ccd849_20241114224806_758108c0e014e3ac4f34cb6ba5ccd849_6735ae91b2069.jpg.jpeg)
 
 在这个页面，我们输入你邮箱的域名，管理员邮箱地址，以及生成密码（也可以自己手动输入）后提交即可。切记记录一下邮箱的域名和管理员账户。
 
 进入后台，找到 **`System settings → TLS certificate`**，点击**` issue free letsencrypt.org certificate `**进行申请SSL证书（申请SSL证书后浏览器地址栏会变小绿锁，不会显示不安全了）。
 
-![](https://image.zhangyirui.cn/i/2024/11/14/6735afab75ab4.jpg)
+![](https://files.bd3qif.com/2025/01/27/20250127021418_01c680aebce7cfa0777a7f41747e7ad0_6735afab75ab4.jpg.jpeg)
 
-![](https://imghub.bd3qif.com/2024/11/14/20241114224816_cf1f88ea70e0b4b5f366a015e098da24_6735b025c9ff0.jpg.jpeg)
+![](https://files.bd3qif.com/2025/01/27/20250127021426_cf1f88ea70e0b4b5f366a015e098da24_20241114224816_cf1f88ea70e0b4b5f366a015e098da24_6735b025c9ff0.jpg.jpeg)
 
 申请完后，前台再次访问邮箱域名，会自动跳转到邮箱的登录页面。输入之前设置管理员账号和密码并登陆。
 
 然后我们在**Virtual domains**点击域名，申请 `DKIM`
 
-![](https://image.zhangyirui.cn/i/2024/11/14/6735b12c748e3.jpg)
+![](https://files.bd3qif.com/2025/01/27/20250127021434_980ce3af7a24115c00d5d777861e2a81_6735b12c748e3.jpg.jpeg)
 
-![](https://imghub.bd3qif.com/2024/11/14/20241114224822_f866071160427708b3a89e8bd1cd6d83_6735b17c59cba.jpg.jpeg)
+![](https://files.bd3qif.com/2025/01/27/20250127021441_f866071160427708b3a89e8bd1cd6d83_20241114224822_f866071160427708b3a89e8bd1cd6d83_6735b17c59cba.jpg.jpeg)
 
 申请完成后，需要按照页面提示更新DNS记录，新建一个TXT记录即可。
 
-![](https://imghub.bd3qif.com/2024/11/14/20241114224836_c38a18d00f5a6d5b85fba26880462a9f_6735b1de429bc.jpg.jpeg)
+![](https://files.bd3qif.com/2025/01/27/20250127021445_c38a18d00f5a6d5b85fba26880462a9f_20241114224836_c38a18d00f5a6d5b85fba26880462a9f_6735b1de429bc.jpg.jpeg)
 
 接下来我们测试发信。我们新建邮件，随便编辑一些内容我发给我的QQ邮箱，可以看到邮件该有的功能页面都有，挺齐全了。
 
