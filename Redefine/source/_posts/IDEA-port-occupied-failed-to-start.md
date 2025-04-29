@@ -114,6 +114,8 @@ netsh interface ipv4 show excludedportrange protocol=tcp
 在`cmd`中输入下面命令（**需要管理员权限**）：
 
 ```cmd
+net stop winnat
 netsh int ipv4 delete excludedportrange protocol=tcp startport=9049 number=100
+net start winnat
 ```
 
