@@ -86,3 +86,30 @@ def __init_data(self, data):
 
 修改后，在用`Cloudflare`的`DNS`申请证书时，可以使用`API Token`的方式申请。
 
+# 三、修改生成下载SSL证书时的链接
+
+修改文件`/www/server/panel/class/sslModel/certModel.py`中`download_cert`函数和`batch_download_cert`函数：
+
+```python
+# 将函数中的：
+zfile = '{}://{}:{}/download?filename={}'.format(ssl, host, port, zfile)
+# 改为：
+zfile = '{}://{}/download?filename={}'.format(ssl, host, zfile)
+```
+
+或者向下面这样改：
+
+```python
+# 将下面两行代码
+# host = request.host.split(":")[0]
+# ssl = "https" if public.is_ssl() else "http"
+# 改为
+ssl = "https" if public.is_ssl() else "http"
+host_port =  request.host.split(":")
+host = host_port[0]
+if len(host_port) > 1:
+    port = host_port[1]
+else:
+	port = "443" if public.is_ssl() else "80"
+```
+
