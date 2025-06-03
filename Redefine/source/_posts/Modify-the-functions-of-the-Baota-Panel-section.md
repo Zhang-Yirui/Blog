@@ -88,7 +88,7 @@ def __init_data(self, data):
 
 # 三、修改生成下载SSL证书时的链接
 
-修改文件`/www/server/panel/class/sslModel/certModel.py`中`download_cert`函数和`batch_download_cert`函数：
+在使用反向代理宝塔面板时，下载证书会带上端口，这会导致下载不了证书，为了正常下载和更好地隐藏端口，需要修改文件`/www/server/panel/class/sslModel/certModel.py`中的`download_cert`函数和`batch_download_cert`函数：
 
 ```python
 # 将函数中的：
@@ -97,7 +97,7 @@ zfile = '{}://{}:{}/download?filename={}'.format(ssl, host, port, zfile)
 zfile = '{}://{}/download?filename={}'.format(ssl, host, zfile)
 ```
 
-或者向下面这样改：
+或者像下面这样改：
 
 ```python
 # 将下面两行代码
