@@ -1,9 +1,9 @@
 name: Generate Blogs
 on:
-  push:
-    branches: [main]
-  schedule:
-    - cron: "0 1-23/2 * * *" # every day
+  # push:
+    # branches: [main]
+  # schedule:
+    # - cron: "0 1-23/2 * * *" # every day
   workflow_dispatch:
 
 permissions: write-all
