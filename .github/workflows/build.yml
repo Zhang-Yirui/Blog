@@ -25,7 +25,7 @@ jobs:
           
       - name: Install dependencies
         run: |
-          pip install -r ${{ github.workspace }}/Redefine/requirements.txt
+          pip install -r ${{ github.workspace }}/content/requirements.txt
           echo "--------------------------------------------------"
           pip list
           echo "--------------------------------------------------"
@@ -37,7 +37,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           PUSHKEY: ${{ secrets.PUSHKEY }}
         run: |
-          cd ${{ github.workspace }}/Redefine
+          cd ${{ github.workspace }}/content
           python ./generate-config.py
         shell: bash
       
@@ -46,11 +46,11 @@ jobs:
         with:
           name: config-files
           path: |
-            ${{ github.workspace }}/Redefine/blog.bd3qif.com/_config.redefine.yml
-            ${{ github.workspace }}/Redefine/blog.bd3qif.com/_config.yml
-            ${{ github.workspace }}/Redefine/blog.zhangyirui.cn/_config.redefine.yml
-            ${{ github.workspace }}/Redefine/blog.zhangyirui.cn/_config.yml
-            ${{ github.workspace }}/Redefine/pandoc/pandoc.deb
+            ${{ github.workspace }}/content/blog.bd3qif.com/_config.redefine.yml
+            ${{ github.workspace }}/content/blog.bd3qif.com/_config.yml
+            ${{ github.workspace }}/content/blog.zhangyirui.cn/_config.redefine.yml
+            ${{ github.workspace }}/content/blog.zhangyirui.cn/_config.yml
+            ${{ github.workspace }}/content/pandoc/pandoc.deb
 
   Generate-And-Deploy-Blog:
     name: Generate and deploy Hexo blogs
@@ -106,8 +106,8 @@ jobs:
       - name: Copy source files
         run: |
           cd ${{ github.workspace }}
-          cp -r ./Redefine/source/ ./blog/
-          cp -r ./Redefine/scaffolds/ ./blog/
+          cp -r ./content/source/ ./blog/
+          cp -r ./content/scaffolds/ ./blog/
         shell: bash
         
       - name: Copy config files
@@ -125,7 +125,7 @@ jobs:
       - name: Add README file & Compress files
         run: |
           cd ${{ github.workspace }}/blog
-          cp ../Redefine/source/.README.md ./public/README.md
+          cp ../content/source/.README.md ./public/README.md
           tar -zcf public-blog.${{ matrix.blog }}.tar.gz ./public
         shell: bash
 
